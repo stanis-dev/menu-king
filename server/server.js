@@ -15,14 +15,16 @@ mongoose.connect(
   database,
   {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
   },
   () => {
-    console.log('Base de datos conectada');
+    console.log('✔ Base de datos conectada --');
   }
 );
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor escuchando en puerto: ${PORT}`);
+  console.log(`✔ Servidor escuchando en puerto: ${PORT} --`);
 });
