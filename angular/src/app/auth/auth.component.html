@@ -1,0 +1,13 @@
+<div class="auth-container">
+  <h2>MENU KING_</h2>
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    <input type="email" placeholder="Tu correo" formControlName="email" />
+    <input
+      type="password"
+      placeholder="Tu contraseña"
+      formControlName="password"
+    />
+    <button type="submit" [disabled]="!authForm.valid">ENTRAR</button>
+    <button type="button">CREAR CUENTA</button>
+  </form>
+</div>
