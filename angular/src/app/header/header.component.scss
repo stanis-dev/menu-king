@@ -1,0 +1,30 @@
+nav {
+  color: white;
+  height: 140px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  .logo {
+    img {
+      height: 100px;
+      width: auto;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin-left: 60px;
+      text-transform: uppercase;
+      font-weight: 200;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+}

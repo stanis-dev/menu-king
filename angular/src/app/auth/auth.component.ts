@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService, APIAuthResponse } from './auth.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -34,9 +35,14 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    console.log(this.authForm.value);
-    this.authService.login(this.authForm.value).subscribe((authResponse) => {
-      console.log(authResponse);
-    });
+    this.authService
+      .login(this.authForm.value)
+      .subscribe((authResponse: APIAuthResponse) => {
+        console.log('authed');
+      });
+  }
+
+  onCookie() {
+    this.authService.isAuthenticated();
   }
 }

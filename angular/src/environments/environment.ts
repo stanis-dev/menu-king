@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  secret: 'elite$_penny·_smell%_spend/_visit?_model_wrong_movie_award_tiger',
 };
 
 /*

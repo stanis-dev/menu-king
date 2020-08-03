@@ -1,3 +1,8 @@
 <div class="body-container">
-  <app-auth></app-auth>
+  <div class="content blurred" [ngClass]="{ blurred: isAuthenticated }">
+    <div *ngIf="isAuthenticated">Auth is true!!!</div>
+    <app-header></app-header>
+    <hr />
+    <router-outlet></router-outlet>
+  </div>
 </div>

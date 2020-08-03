@@ -1,9 +1,34 @@
 .body-container {
+  & .blurred {
+    &::before {
+      filter: blur(10px) brightness(20%);
+      top: 0;
+      left: 0;
+      content: "";
+      position: absolute;
+      background-image: url("../assets//img/hero-img.jpg");
+      background-color: rgba(201, 76, 76, 0.4);
+      transition-duration: 1000;
+      transform: scale(1.03);
+      background-position: center;
+      min-height: 100vh;
+      width: 100%;
+      z-index: -10;
+    }
+  }
+
   background-image: url("../assets//img/hero-img.jpg");
+  transform: scale(1.03);
   background-position: center;
-  background-size: cover;
-  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  min-height: 100vh;
+  z-index: 200;
+
+  .content {
+    z-index: 900;
+  }
 }

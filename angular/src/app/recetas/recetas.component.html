@@ -1,0 +1,52 @@
+<div class="recetas">
+  <form [formGroup]="recetaNueva" (ngSubmit)="onSubmit()">
+    <h2>RECETAS</h2>
+    <h3>Titulo</h3>
+    <input
+      type="text"
+      placeholder="El nombre de la receta"
+      formControlName="recetaNombre"
+      #recetaTitulo
+    />
+    <img src="" alt="" />
+    <input
+      type="text"
+      placeholder="Imágen de la receta"
+      formControlName="recetaImagen"
+    />
+    <div class="ingrediente-input" formArrayName="ingredientes">
+      <div
+        *ngFor="let ingrediente of ingredientes.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <input
+          type="text"
+          placeholder="Ingrediente"
+          formControlName="ingrediente"
+        />
+        <input
+          type="number"
+          placeholder="cantidad (gramos)"
+          formControlName="ingredienteCantidad"
+        />
+        <button type="button" class="btn-add" (click)="onAddIngredient()">
+          +
+        </button>
+        <button
+          type="button"
+          class="btn-delete"
+          (click)="onDeleteIngredient(i)"
+        >
+          x
+        </button>
+      </div>
+    </div>
+    <div class="botones">
+      <button type="submit">Guardar</button>
+      <button disabled>Descartar</button>
+    </div>
+  </form>
+  <div class="ingrediente-resultado">
+    <h3>Análisis :</h3>
+  </div>
+</div>

@@ -8,8 +8,11 @@ const bcrypt = require('bcrypt');
 const signAndSendToken = async (req, res, next, user) => {
   try {
     const token = await jwt.sign(
-      user.username,
-      process.env.DATABASE_JWT_SECRET
+      { userId: user._id },
+      process.env.DATABASE_JWT_SECRET,
+      {
+        expiresIn: '2 days',
+      }
     );
 
     res

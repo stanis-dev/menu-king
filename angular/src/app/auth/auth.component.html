@@ -8,6 +8,6 @@
       formControlName="password"
     />
     <button type="submit" [disabled]="!authForm.valid">ENTRAR</button>
-    <button type="button">CREAR CUENTA</button>
+    <button type="button" (click)="onCookie()">CREAR CUENTA</button>
   </form>
 </div>

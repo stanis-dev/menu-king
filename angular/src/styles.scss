@@ -4,10 +4,30 @@
 *::after,
 *::before {
   box-sizing: border-box;
+  color: #fbfbfd;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: "Raleway", sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+button {
+  line-height: 1rem;
+}
+
+button:hover {
+  filter: brightness(120%);
+  transition-duration: 400ms;
+}
+
+button:disabled {
+  filter: brightness(70%);
+}
+
+input {
+  color: black;
 }
