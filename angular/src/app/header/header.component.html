@@ -5,7 +5,7 @@
   <ul>
     <li><a [routerLink]="['recetas']">Recetas</a></li>
     <li><a>Menús</a></li>
-    <li><a>Salir</a></li>
+    <li><a (click)="onLogout()">Salir</a></li>
     <li><a [routerLink]="['auth']">Auth</a></li>
   </ul>
 </nav>

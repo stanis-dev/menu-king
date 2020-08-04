@@ -24,11 +24,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSwitchMode() {
-    this.authMode = this.authMode === 'registro' ? 'acceso' : 'registro';
-    console.log(this.authMode);
-  }
-
   ngOnDestroy() {
     this.isLoadingSub.unsubscribe();
   }

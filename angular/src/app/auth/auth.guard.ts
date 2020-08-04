@@ -16,15 +16,22 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean> {
-    return this.checkLogin();
+    console.log(state.url);
+    return this.checkLogin(state.url);
   }
 
-  checkLogin() {
-    if (this.authService.isLoggedIn) {
+  checkLogin(path): boolean {
+    if (this.authService.isLoggedIn && path === '/auth') {
+      this.router.navigate(['recetas']);
+      return false;
+    } else if (this.authService.isLoggedIn && path !== '/auth') {
       return true;
+    } else if (!this.authService.isLoggedIn && path === '/auth') {
+      return true;
+    } else {
+      return false;
     }
 
     // TODO: display error if user attempt to acces forbidden route
-    return this.router.navigate(['auth']);
   }
 }

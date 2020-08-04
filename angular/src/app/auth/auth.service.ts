@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export interface APIAuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  public user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
   // TODO --> cambiar a Observable??
   isLoading = new Subject<boolean>();
@@ -39,6 +39,7 @@ export class AuthService {
       new Date(Date.now() + 1000)
     );
 
+    localStorage.setItem('user', JSON.stringify(newUser));
     this.isLoading.next(false);
     this.user.next(newUser);
     this.router.navigate(['recetas']);
@@ -59,6 +60,31 @@ export class AuthService {
         catchError((error) => this.handleError(error)),
         tap((resData) => this.handleAuth(resData))
       );
+  }
+
+  autoLogin() {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (!storedUser) {
+      this.isLoggedIn = false;
+    }
+
+    const userClass = new User(
+      storedUser.id,
+      storedUser.username,
+      storedUser.email,
+      storedUser._tokenExpirationDate
+    );
+
+    this.user.next(userClass);
+    this.isLoggedIn = true;
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    this.user.next(null);
+    localStorage.removeItem('user');
+    this.router.navigate(['auth']);
   }
 
   signup(signupForm: {
