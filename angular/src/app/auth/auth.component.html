@@ -1,6 +1,8 @@
 <div class="auth-container">
   <h2>MENU KING_</h2>
 
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
   <form
     [formGroup]="authForm"
     (ngSubmit)="onSubmit()"

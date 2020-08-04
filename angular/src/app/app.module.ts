@@ -10,9 +10,10 @@ import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { RecetasComponent } from './recetas/recetas.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, DashboardComponent, HeaderComponent, RecetasComponent],
+  declarations: [AppComponent, AuthComponent, DashboardComponent, HeaderComponent, RecetasComponent, SpinnerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

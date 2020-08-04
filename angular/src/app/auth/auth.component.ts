@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService, APIAuthResponse } from './auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
+  isLoading = false;
+  isLoadingSub: Subscription;
   authMode = 'registro';
   authForm =
     this.authMode === 'acceso'
@@ -31,7 +34,11 @@ export class AuthComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isLoadingSub = this.authService.isLoading.subscribe((loadingBool) => {
+      this.isLoading = loadingBool;
+    });
+  }
 
   onSubmit(): void {
     if (this.authMode === 'acceso') {
@@ -56,5 +63,9 @@ export class AuthComponent implements OnInit {
   onSwitchMode() {
     this.authMode = this.authMode === 'registro' ? 'acceso' : 'registro';
     console.log(this.authMode);
+  }
+
+  ngOnDestroy() {
+    this.isLoadingSub.unsubscribe();
   }
 }
