@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 export interface APIAuthResponse {
   status: string;
@@ -16,10 +17,20 @@ export interface APIAuthResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   public user = new Subject<User>();
-  isLoading = new Subject<boolean>();
-  // TODO --> Add user interface for TP.
-  constructor(private http: HttpClient) {}
 
+  // TODO --> cambiar a Observable??
+  isLoading = new Subject<boolean>();
+  isLoggedIn = false;
+
+  // TODO --> Add user interface for TP.
+  constructor(private http: HttpClient, private router: Router) {}
+
+  /*
+  Crear y emitir usuario nuevo,
+  redirigir a 'recetas'
+
+  TODO: redirigir a dashboard una vez esté implimentado
+  */
   handleAuth(resData): void {
     const newUser = new User(
       resData.user._id,
@@ -30,10 +41,13 @@ export class AuthService {
 
     this.isLoading.next(false);
     this.user.next(newUser);
+    this.router.navigate(['recetas']);
+    this.isLoggedIn = true;
   }
 
   async handleError(error) {
     this.isLoading.next(false);
+    this.isLoggedIn = false;
     console.log(error);
   }
 

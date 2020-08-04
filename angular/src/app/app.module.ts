@@ -11,9 +11,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { RecetasComponent } from './recetas/recetas.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, DashboardComponent, HeaderComponent, RecetasComponent, SpinnerComponent],
+  declarations: [
+    AppComponent,
+    AuthComponent,
+    DashboardComponent,
+    HeaderComponent,
+    RecetasComponent,
+    SpinnerComponent,
+    LoginComponent,
+    SignupComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
