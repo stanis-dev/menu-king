@@ -39,10 +39,12 @@ export class AuthComponent implements OnInit {
         .login(this.authForm.value)
         .subscribe((authResponse: APIAuthResponse) => {
           console.log('authed');
+          this.authForm.reset();
         });
     } else {
       this.authService.signup(this.authForm.value).subscribe((authResponse) => {
         console.log('signed up');
+        this.authForm.reset();
       });
     }
   }

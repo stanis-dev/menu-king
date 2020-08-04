@@ -15,27 +15,26 @@ export interface APIAuthResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new Subject<User>();
+  public user = new Subject<User>();
   // TODO --> Add user interface for TP.
-  authResponse: Observable<any>;
   constructor(private http: HttpClient) {}
 
   // TODO: Abstract handleAuth for login and signup
   handleAuth(resData) {
-    const user = new User(
+    const newUser = new User(
       resData.user._id,
       resData.user.username,
       resData.user.email,
-      resData.user.password,
       new Date(Date.now() + 1000)
     );
-    this.user.next(user);
+
+    this.user.next(newUser);
   }
 
   login(loginForm: { email: string; password: string }) {
     return this.http
       .post<APIAuthResponse>('/api/v1/users/login', loginForm)
-      .pipe(tap(this.handleAuth));
+      .pipe(tap((resData) => this.handleAuth(resData)));
   }
 
   signup(signupForm: {
@@ -46,7 +45,7 @@ export class AuthService {
   }) {
     return this.http
       .post('/api/v1/users/registro', signupForm)
-      .pipe(tap(this.handleAuth));
+      .pipe(tap((resData) => this.handleAuth(resData)));
   }
 
   isAuthenticated(): boolean {
