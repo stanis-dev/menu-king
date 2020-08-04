@@ -20,21 +20,33 @@ export class AuthService {
   authResponse: Observable<any>;
   constructor(private http: HttpClient) {}
 
+  // TODO: Abstract handleAuth for login and signup
+  handleAuth(resData) {
+    const user = new User(
+      resData.user._id,
+      resData.user.username,
+      resData.user.email,
+      resData.user.password,
+      new Date(Date.now() + 1000)
+    );
+    this.user.next(user);
+  }
+
   login(loginForm: { email: string; password: string }) {
     return this.http
       .post<APIAuthResponse>('/api/v1/users/login', loginForm)
-      .pipe(
-        tap((resData) => {
-          const user = new User(
-            resData.user._id,
-            resData.user.username,
-            resData.user.email,
-            resData.user.password,
-            new Date(Date.now() + 1000)
-          );
-          this.user.next(user);
-        })
-      );
+      .pipe(tap(this.handleAuth));
+  }
+
+  signup(signupForm: {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) {
+    return this.http
+      .post('/api/v1/users/registro', signupForm)
+      .pipe(tap(this.handleAuth));
   }
 
   isAuthenticated(): boolean {

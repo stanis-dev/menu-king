@@ -1,6 +1,12 @@
 <div class="auth-container">
   <h2>MENU KING_</h2>
-  <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+
+  <form
+    [formGroup]="authForm"
+    (ngSubmit)="onSubmit()"
+    *ngIf="authMode === 'acceso'; else regForm"
+  >
+    <p>Entrar con una cuenta</p>
     <input type="email" placeholder="Tu correo" formControlName="email" />
     <input
       type="password"
@@ -8,6 +14,30 @@
       formControlName="password"
     />
     <button type="submit" [disabled]="!authForm.valid">ENTRAR</button>
-    <button type="button" (click)="onCookie()">CREAR CUENTA</button>
+    <button type="button" (click)="onSwitchMode()">CREAR CUENTA</button>
   </form>
+
+  <ng-template #regForm>
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <p>Registrar cuenta nueva</p>
+      <input
+        type="text"
+        placeholder="Nombre de usuario"
+        formControlName="username"
+      />
+      <input type="email" placeholder="Tu correo" formControlName="email" />
+      <input
+        type="password"
+        placeholder="Tu contraseña"
+        formControlName="password"
+      />
+      <input
+        type="password"
+        placeholder="Confirmar contraseña"
+        formControlName="confirmPassword"
+      />
+      <button type="submit" [disabled]="!authForm.valid">ENVIAR</button>
+      <button type="button" (click)="onSwitchMode()">LOGIN</button>
+    </form>
+  </ng-template>
 </div>

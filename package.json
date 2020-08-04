@@ -1,6 +1,6 @@
 {
   "name": "menu-king",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "App que te ayuda a crear menús con toda la información nutricional que necesites",
   "main": "server/server.js",
   "scripts": {
