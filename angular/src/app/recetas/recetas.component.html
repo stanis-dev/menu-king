@@ -1,19 +1,34 @@
 <div class="recetas">
   <form [formGroup]="recetaForm" (ngSubmit)="onSubmit()">
-    <h2 (click)="onPrePopulateRecipe()">RECETAS</h2>
-    <h3>Titulo</h3>
-    <input
-      type="text"
-      placeholder="El nombre de la receta"
-      formControlName="recetaNombre"
-      #recetaTitulo
-    />
-    <img src="" alt="" />
-    <input
-      type="text"
-      placeholder="Imágen de la receta"
-      formControlName="recetaImagen"
-    />
+    <div
+      class="receta-header"
+      [ngStyle]="{
+        background: 'url(' + recetaBackground.value + ')',
+        backgroundSize: 'contain'
+      }"
+    >
+      <h3 (click)="onPrePopulateRecipe()">
+        {{
+          recetaForm.get("recetaNombre").value
+            ? recetaForm.get("recetaNombre").value
+            : "Tu nueva receta"
+        }}
+      </h3>
+      <div class="header-inputs">
+        <input
+          type="text"
+          placeholder="El nombre de la receta"
+          formControlName="recetaNombre"
+          #recetaTitulo
+        />
+        <input
+          type="text"
+          placeholder="Imágen de la receta"
+          formControlName="recetaImagen"
+          #recetaBackground
+        />
+      </div>
+    </div>
     <div class="ingrediente-input" formArrayName="ingredientes">
       <div
         *ngFor="let ingrediente of ingredientes.controls; let i = index"

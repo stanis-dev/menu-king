@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { RecetasService } from './recetas.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-recetas',
@@ -10,8 +9,6 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./recetas.component.scss'],
 })
 export class RecetasComponent implements OnInit {
-  receta;
-
   analisys;
   recetaForm: FormGroup = this.fb.group({
     recetaNombre: ['', Validators.required],
@@ -50,10 +47,8 @@ export class RecetasComponent implements OnInit {
       // yield?
       ingr,
     };
-    console.log(newReceta);
     this.recetasService.fetchReceta(newReceta).subscribe((response) => {
       this.analisys = response;
-      console.log(response);
     });
   }
 

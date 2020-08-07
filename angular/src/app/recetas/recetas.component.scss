@@ -3,14 +3,42 @@
   margin-top: 100px;
   min-height: 50vh;
   max-width: 1000px;
+
   form {
     width: 100%;
     max-width: 490px;
     display: flex;
     flex-direction: column;
+    max-height: 70vh;
+    overflow-y: auto;
+
+    .receta-header {
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+
+      justify-content: space-between;
+
+      h3 {
+        background-color: rgba(0, 0, 0, 0.815);
+        line-height: 3rem;
+        width: 100%;
+        padding-left: 50px;
+        margin-top: 0;
+      }
+
+      .header-inputs {
+        background-color: rgba(0, 0, 0, 0.815);
+        input {
+          display: block;
+          width: 100%;
+        }
+      }
+    }
 
     input {
-      height: 40px;
+      min-height: 30px;
       background-color: rgba(255, 255, 255, 0.774);
       border-radius: 10px;
       margin-top: 10px;
@@ -73,13 +101,10 @@
 
   app-analisis {
     width: 100%;
+    height: min-content;
     max-width: 490px;
     border: 2px white solid;
     background-color: rgba(255, 255, 255, 0.123);
     margin-left: 20px;
-  }
-
-  h3 {
-    margin-left: 40px;
   }
 }
