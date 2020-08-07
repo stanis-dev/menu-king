@@ -2,9 +2,10 @@
   display: flex;
   margin-top: 100px;
   min-height: 50vh;
-
+  max-width: 1000px;
   form {
     width: 100%;
+    max-width: 490px;
     display: flex;
     flex-direction: column;
 
@@ -70,10 +71,11 @@
     }
   }
 
-  .ingrediente-resultado {
+  app-analisis {
     width: 100%;
+    max-width: 490px;
     border: 2px white solid;
-    background-color: rgba(255, 255, 255, 0.425);
+    background-color: rgba(255, 255, 255, 0.123);
     margin-left: 20px;
   }
 

@@ -1,6 +1,6 @@
 <div class="recetas">
-  <form [formGroup]="recetaNueva" (ngSubmit)="onSubmit()">
-    <h2>RECETAS</h2>
+  <form [formGroup]="recetaForm" (ngSubmit)="onSubmit()">
+    <h2 (click)="onPrePopulateRecipe()">RECETAS</h2>
     <h3>Titulo</h3>
     <input
       type="text"
@@ -46,7 +46,5 @@
       <button disabled>Descartar</button>
     </div>
   </form>
-  <div class="ingrediente-resultado">
-    <h3>Análisis :</h3>
-  </div>
+  <app-analisis [analisis]="analisys"></app-analisis>
 </div>

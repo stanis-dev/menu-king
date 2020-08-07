@@ -1,0 +1,47 @@
+<div class="ingrediente-resultado" *ngIf="analisis; else sinReceta">
+  <h3>
+    Análisis : <span>{{ analisis.title }}</span>
+  </h3>
+  <p>
+    Calorías totales: <span>{{ analisis.totalCalories }}</span> kcal
+  </p>
+  <p>
+    Raciones: <span>{{ analisis.raciones }}</span>
+  </p>
+  <p>
+    Calorías por ración: <span>{{ analisis.calRacion }}</span> kcal
+  </p>
+  <p>
+    Proteínas: <span>{{ analisis.prot }}</span> gr
+  </p>
+  <p>
+    Carbohidratos:
+    <span>{{ analisis.carbs }}</span> gr
+  </p>
+  <p>
+    de éstos azúcares:
+    <span>{{ analisis.azucares }}</span> gr
+  </p>
+  <p>
+    Grasas: <span>{{ analisis.grasas }}</span> gr
+  </p>
+  <p>
+    de ellas saturadas:
+    <span>{{ analisis.saturadas }}</span> gr
+  </p>
+  <p>
+    Análisis de salud: <span>{{ analisis.etiquetas }}</span>
+  </p>
+  <p>
+    Alergias: <span>{{ analisis.alergenos }}</span>
+  </p>
+  <p>
+    Avísos: <span>{{ analisis.avisos }}</span>
+  </p>
+</div>
+
+<ng-template #sinReceta>
+  <div class="ingrediente-resultado">
+    <p>No has elegido ninguna receta aun</p>
+  </div>
+</ng-template>

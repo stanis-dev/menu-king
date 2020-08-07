@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  FormArray,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { RecetasService } from './recetas.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-recetas',
@@ -14,7 +10,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./recetas.component.scss'],
 })
 export class RecetasComponent implements OnInit {
-  recetaNueva: FormGroup = this.fb.group({
+  receta;
+
+  analisys;
+  recetaForm: FormGroup = this.fb.group({
     recetaNombre: ['', Validators.required],
     recetaImagen: [''],
     ingredientes: this.fb.array([
@@ -26,7 +25,10 @@ export class RecetasComponent implements OnInit {
   });
   formSub: Subscription;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private recetasService: RecetasService
+  ) {}
 
   ngOnInit(): void {
     /* this.formSub = this.recetaNueva.valueChanges.subscribe((val) => {
@@ -36,7 +38,23 @@ export class RecetasComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.recetaNueva.value);
+    let ingr = [];
+    this.recetaForm.value.ingredientes.map((ingrediente) => {
+      ingr.push(
+        `${ingrediente.ingredienteCantidad}gr of ${ingrediente.ingrediente}`
+      );
+    });
+
+    const newReceta = {
+      title: this.recetaForm.value.recetaNombre,
+      // yield?
+      ingr,
+    };
+    console.log(newReceta);
+    this.recetasService.fetchReceta(newReceta).subscribe((response) => {
+      this.analisys = response;
+      console.log(response);
+    });
   }
 
   onAddIngredient(): void {
@@ -53,6 +71,34 @@ export class RecetasComponent implements OnInit {
   }
 
   get ingredientes(): FormArray {
-    return this.recetaNueva.get('ingredientes') as FormArray;
+    return this.recetaForm.get('ingredientes') as FormArray;
+  }
+
+  onPrePopulateRecipe() {
+    const ingredients = [
+      { ingrediente: 'Chicken', ingredienteCantidad: 200 },
+      { ingrediente: 'Potatoes', ingredienteCantidad: 500 },
+      { ingrediente: 'Garlic', ingredienteCantidad: 20 },
+      { ingrediente: 'Olive Oil', ingredienteCantidad: 35 },
+      { ingrediente: 'Lemon juice', ingredienteCantidad: 60 },
+      { ingrediente: 'Mushrooms', ingredienteCantidad: 200 },
+    ];
+
+    ingredients.map((ingr) => {
+      this.ingredientes.push(
+        this.fb.group({
+          ingrediente: [ingr.ingrediente],
+          ingredienteCantidad: [ingr.ingredienteCantidad],
+        })
+      );
+    });
+
+    this.recetaForm.patchValue({
+      recetaNombre: 'Chicken with potatoes',
+      recetaImagen:
+        'https://www.eatwell101.com/wp-content/uploads/2018/05/Garlic-Butter-Chicken-and-Potatoes-Skillet.jpg',
+    });
+
+    this.ingredientes.removeAt(0);
   }
 }

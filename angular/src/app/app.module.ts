@@ -13,6 +13,7 @@ import { RecetasComponent } from './recetas/recetas.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AnalisisComponent } from './recetas/analisis/analisis.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     SpinnerComponent,
     LoginComponent,
     SignupComponent,
+    AnalisisComponent,
   ],
   imports: [
     BrowserModule,
