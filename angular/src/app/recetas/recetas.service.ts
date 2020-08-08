@@ -19,9 +19,9 @@ export class RecetasService {
         map((respuestaRecetas: any) => {
           console.log(respuestaRecetas);
           const analisis = {
-            totalCalories: respuestaRecetas.calories,
+            caloriasTotal: respuestaRecetas.calories,
             raciones: +respuestaRecetas.yield,
-            calRacion: Math.round(
+            caloriasRacion: Math.round(
               respuestaRecetas.calories / respuestaRecetas.yield
             ),
             prot: Math.round(
@@ -128,7 +128,7 @@ export class RecetasService {
                 return;
             }
           });
-
+          console.log(analisis);
           return analisis;
         })
       );

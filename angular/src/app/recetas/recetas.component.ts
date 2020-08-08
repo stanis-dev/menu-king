@@ -47,7 +47,10 @@ export class RecetasComponent implements OnInit {
       // yield?
       ingr,
     };
+
+    console.log(newReceta);
     this.recetasService.fetchReceta(newReceta).subscribe((response) => {
+      console.log(response);
       this.analisys = response;
     });
   }
