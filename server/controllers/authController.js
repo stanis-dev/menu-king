@@ -9,50 +9,7 @@ const AppError = require('../utils/appError');
 const User = require('../models/userModel');
 
 // Funciones auxiliares
-exports.authenticateUser = catchAsync(async (req, res, next) => {
-  const token = req.signedCookies.jwt;
-
-  if (!token) {
-    next(new AppError('Usuario no identificado', 401, true));
-  }
-
-  // Aplicamos promisify para que utilice catchAsync en caso de error
-  const tokenIsValid = await promisify(jwt.verify)(
-    token,
-    process.env.DATABASE_JWT_SECRET,
-    {
-      algorithms: 'HS256',
-    }
-  );
-
-  // Encontrar user para token, return con los campos especificados solamente
-  const userFound = await User.findById(tokenIsValid.userId, '-password -_v');
-
-  if (!userFound) {
-    next(
-      new AppError('No existe usuario relacionado con este token', 401, true)
-    );
-  }
-
-  //TODO: implementar ruta cambio de contraseña
-  if (userFound.passwordChangedAt > tokenIsValid.iat) {
-    new AppError(
-      'La contraseña del usuario ha cambiado después de emitir el token',
-      401,
-      true
-    );
-  }
-
-  req.user = userFound;
-  next();
-});
-
-exports.refresh = (req, res, next) => {
-  const refreshToken = req.signedCookies.refreshToken;
-  // TODO: throw error si refreshToken ha expirado, o no es correcto
-};
-
-const signAndSendToken = (req, res, user) => {
+const signAndSendToken = async (req, res, user) => {
   // Firmar jwt, crear refresh token y definir el código status
   const token = jwt.sign(
     { userId: user._id },
@@ -63,6 +20,11 @@ const signAndSendToken = (req, res, user) => {
   );
   const refreshToken = randtoken.uid(256);
   const status = req.url === '/login' ? 200 : 201;
+
+  await User.findByIdAndUpdate(user._id, {
+    refreshToken,
+    refreshTokenExpiresAt: Date.now(),
+  });
 
   // Enviar la respuesta. jwt expira en 5 min, refreshToken en 15 días
   res
@@ -85,6 +47,75 @@ const signAndSendToken = (req, res, user) => {
     });
 };
 
+exports.authenticateUser = catchAsync(async (req, res, next) => {
+  const token = req.signedCookies.jwt;
+
+  if (!token) {
+    return next(new AppError('Usuario no identificado', 401));
+  }
+
+  // Aplicamos promisify para que utilice catchAsync en caso de error
+  const validatedToken = await promisify(jwt.verify)(
+    token,
+    process.env.DATABASE_JWT_SECRET,
+    {
+      algorithms: 'HS256',
+    }
+  );
+
+  // Encontrar user para token, return con los campos especificados solamente
+  const userFound = await User.findById(validatedToken.userId, '-password -_v');
+
+  if (!userFound) {
+    next(new AppError('No existe usuario relacionado con este token', 401));
+  }
+
+  //TODO: implementar ruta cambio de contraseña
+  if (userFound.passwordChangedAt > validatedToken.iat) {
+    new AppError(
+      'La contraseña del usuario ha cambiado después de emitir el token',
+      401
+    );
+  }
+
+  req.user = userFound;
+  next();
+});
+
+exports.refresh = catchAsync(async (req, res, next) => {
+  const token = req.signedCookies.jwt;
+  const refreshToken = req.signedCookies.refreshToken;
+
+  if (!token || !refreshToken) {
+    return next(new AppError('Usuario no identificado', 401));
+  }
+
+  const validateToken = await promisify(jwt.verify)(
+    token,
+    process.env.DATABASE_JWT_SECRET,
+    {
+      algorithms: 'HS256',
+    }
+  );
+
+  const userFound = await User.findById(validateToken.userId);
+
+  if (!userFound) {
+    return next(
+      new AppError('No existe usuario relacionado con este token', 401)
+    );
+  }
+
+  if (
+    userFound.refreshToken !== refreshToken ||
+    userFound.refreshTokenExpiresAt > Date.now()
+  ) {
+    return next(new AppError('Refresh Token caducado o incorrecto', 401));
+  }
+
+  signAndSendToken(req, res, userFound);
+});
+
 /* 
 TODO Implementar comporobación expiración JWT
 */
@@ -105,21 +136,33 @@ exports.registro = catchAsync(async (req, res, next) => {
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return next(
+      new AppError('El email o la contaseña no se han indicado', 401)
+    );
+  }
+
   // Comprobar si el usuario existe
-  const userFound = await User.findOne({ email });
+  const userFound = await User.findOne({ email }).select('+password');
 
   if (!userFound) {
-    return next(new appError('Los datos no son correctos', 401, true));
+    return next(new AppError('Los datos no son correctos', 401));
   }
 
-  // Comprobar la contraseña
-  const passwordIsCorrect = await bcrypt.compare(password, userFound.password);
+  const passwordIsCorrect = await userFound.checkPassword(
+    password,
+    userFound.password
+  );
 
   if (!passwordIsCorrect) {
-    return next(new appError('Los datos no son correctos', 401, true));
+    return next(new AppError('Los datos no son correctos', 401));
   }
 
-  signAndSendToken(req, res, userFound);
+  signAndSendToken(req, res, {
+    id: userFound._id,
+    username: userFound.username,
+    email: userFound.email,
+  });
 });
 
 exports.logout = catchAsync(async (req, res, next) => {

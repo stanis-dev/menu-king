@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Por favor, indique su contraseña'],
     minlength: [8, 'Introduzca mínimo 8 caracteres'],
     maxlength: [20, 'Introduzca máximo 20 caracteres'],
+    select: false,
   },
   confirmPassword: {
     type: String,
@@ -32,7 +33,7 @@ const userSchema = new mongoose.Schema({
     },
   },
   refreshToken: String,
-  refreshTokenCreatedAt: Date,
+  refreshTokenExpiresAt: Date,
   passwordChangedAt: Date,
 });
 
@@ -45,11 +46,11 @@ userSchema.pre('save', async function (next) {
 });
 
 // Func comprobar contraseña encriptada
-userSchema.methods.correctPassword = async function (
+userSchema.methods.checkPassword = async function (
   candidatePassword,
-  savedPassword
+  storedPassword
 ) {
-  return await bcrypt.compare(candidatePassword, savedPassword);
+  return await bcrypt.compare(candidatePassword, storedPassword);
 };
 
 const User = mongoose.model('User', userSchema);

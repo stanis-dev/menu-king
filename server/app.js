@@ -8,7 +8,7 @@ dotenv.config({ path: './config.env' });
 const authRouter = require('./routes/authRoutes');
 const recetaRouter = require('./routes/recetaRoutes');
 
-const { errorHandler, errorClassifier } = require('./utils/errorHandler');
+const errorHandler = require('./utils/errorHandler');
 
 const app = express();
 
@@ -24,7 +24,6 @@ app.use(cookieParser('secret'));
 app.use('/api/v1/users', authRouter);
 app.use('/api/v1/receta', recetaRouter);
 
-app.use(errorClassifier);
 app.use(errorHandler);
 
 module.exports = app;
