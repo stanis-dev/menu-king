@@ -31,6 +31,8 @@ const userSchema = new mongoose.Schema({
       message: 'Las contraseñas no coinciden',
     },
   },
+  refreshToken: String,
+  refreshTokenCreatedAt: Date,
 });
 
 userSchema.pre('save', async function (next) {

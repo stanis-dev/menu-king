@@ -8,7 +8,9 @@ const appError = require('../utils/appError');
 const User = require('../models/userModel');
 
 // Funciones auxiliares
-const signAndSendToken = (req, res, next, user) => {
+
+const signAndSendToken = (req, res, user) => {
+  // Firmar jwt, crear refresh token y definir el código status
   const token = jwt.sign(
     { userId: user._id },
     process.env.DATABASE_JWT_SECRET,
@@ -19,14 +21,17 @@ const signAndSendToken = (req, res, next, user) => {
   const refreshToken = randtoken.uid(256);
   const status = req.url === '/login' ? 200 : 201;
 
+  // Enviar la respuesta. jwt expira en 5 min, refreshToken en 15 días
   res
     .status(status)
     .cookie('jwt', token, {
+      expiresIn: Date.now() + 300000,
       signed: true,
       httpOnly: true,
       secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
     })
     .cookie('refreshToken', refreshToken, {
+      expiresIn: Date.now() + 1296000000,
       signed: true,
       httpOnly: true,
       secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
@@ -71,5 +76,12 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new appError('Los datos no son correctos', 401, true));
   }
 
-  signAndSendToken(req, res, next, userFound);
+  signAndSendToken(req, res, userFound);
+});
+
+exports.logout = catchAsync(async (req, res, next) => {
+  res.status(204).clearCookie('jwt').clearCookie('refreshToken').json({
+    status: 'success',
+    message: 'Usuario ha cerrado sesión con éxito',
+  });
 });
