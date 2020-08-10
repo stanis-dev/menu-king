@@ -32,16 +32,31 @@ const userSchema = new mongoose.Schema({
       message: 'Las contraseñas no coinciden',
     },
   },
+  passwordChangedAt: Date,
   refreshToken: String,
   refreshTokenExpiresAt: Date,
   passwordChangedAt: Date,
 });
 
 userSchema.pre('save', async function (next) {
+  /* 
+   Ejecutar sólo si la contraseña ha sido cambiada.
+   Eso es porque utilziamos "save" para actualizar valores
+   De lo contrario, los validadores personalizados no se ejecutan
+    */
+  if (!this.isModified('password')) return next();
   // Encriptación de contraseña
   this.password = await bcrypt.hash(this.password, 10);
   this.confirmPassword = undefined;
 
+  next();
+});
+
+userSchema.pre('save', function (next) {
+  /* No ejecutar con "create", pero si cuando password se modifique */
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now();
   next();
 });
 
