@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
 export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  user = new BehaviorSubject<User>(null);
+  loggedUser: string;
+  /* user = new BehaviorSubject<User>(null); */
 
   // TODO --> cambiar a Observable??
   isLoading = new Subject<boolean>();
@@ -34,7 +35,7 @@ export class AuthService {
 
     localStorage.setItem('user', JSON.stringify(newUser));
     this.isLoading.next(false);
-    this.user.next(newUser);
+    /* this.user.next(newUser); */
     this.router.navigate(['recetas']);
   }
 
@@ -55,17 +56,17 @@ export class AuthService {
     const storedUser = JSON.parse(localStorage.getItem('user'));
 
     if (!storedUser) {
-      this.user.next(null);
+      /*  this.user.next(null); */
     }
 
-    const userClass = new User(
+    /* const userClass = new User(
       storedUser.id,
       storedUser.username,
       storedUser.email,
       storedUser._tokenExpirationDate
-    );
+    ); */
 
-    this.user.next(userClass);
+    this.loggedUser = storedUser.id;
   }
 
   logout() {

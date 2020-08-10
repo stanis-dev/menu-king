@@ -88,28 +88,10 @@ exports.authenticateUser = catchAsync(async (req, res, next) => {
 });
 
 exports.refresh = catchAsync(async (req, res, next) => {
-  const token = req.signedCookies.jwt;
   const refreshToken = req.signedCookies.refreshToken;
 
-  if (!token || !refreshToken) {
-    return next(new AppError('Usuario no identificado', 401));
-  }
-
-  const validateToken = await promisify(jwt.verify)(
-    token,
-    process.env.DATABASE_JWT_SECRET,
-    {
-      algorithms: 'HS256',
-      ignoreExpiration: true,
-    }
-  );
-
-  const userFound = await User.findById(validateToken.userId);
-
-  if (!userFound) {
-    return next(
-      new AppError('No existe usuario relacionado con este token', 401)
-    );
+  if (!refreshToken) {
+    return next(new AppError('Refresh token no encontrado', 401));
   }
 
   if (
@@ -184,6 +166,11 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
+  await User.findOneAndUpdate(
+    { _id: req.user.id },
+    { refreshToken: undefined, refreshTokenExpiresAt: undefined }
+  );
+
   res.status(204).clearCookie('jwt').clearCookie('refreshToken').json({
     status: 'success',
     message: 'Usuario ha cerrado sesión con éxito',
