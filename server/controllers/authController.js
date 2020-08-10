@@ -16,6 +16,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
   });
   const statusCode = req.url === '/signup' ? 201 : 200;
 
+  // No enviar refreshToken en caso de /refresh endpoint
   if (issueRefreshToken) {
     const refreshToken = randtoken.uid(256);
 
@@ -27,6 +28,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
       }
     );
 
+    // Enviar refreshToken, caduca en 15 días
     res.cookie('refreshToken', refreshToken, {
       expiresIn: Date.now() + 1296000000,
       signed: true,
@@ -35,7 +37,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
     });
   }
 
-  // Enviar la respuesta. jwt expira en 5 min, refreshToken en 15 días
+  // Enviar la respuesta. jwt caduca en 5 min
   res
     .status(statusCode)
     .cookie('jwt', token, {
@@ -66,7 +68,7 @@ exports.authenticateUser = catchAsync(async (req, res, next) => {
     }
   );
 
-  // Encontrar user para token, return con los campos especificados solamente
+  // Encontrar user para token, return sin los campos especificados
   const userFound = await User.findById(validatedToken.userId, '-password -_v');
 
   if (!userFound) {
@@ -101,12 +103,7 @@ exports.refresh = catchAsync(async (req, res, next) => {
       ignoreExpiration: true,
     }
   );
-  /* 
-jwt=s%3AeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjIzNDUwODliMzJkNTNkZDQyZWM4YmYiLCJpYXQiOjE1OTcwNTMxMzQsImV4cCI6MTU5NzA1MzQzNH0.ICaugZXpt4VBYwHyS6vxDvqthDzZ9kSx63ycks5SbN0.u%2BXvCwbmw3xTvYRRfLXl3QTmaBzjjWg4qxkgJWioEEI; Path=/; Domain=localhost; HttpOnly;
-refreshToken=s%3A6QwXFvuo6Sa3apumm2AEVpM4BfUy3OfWaFOTeT1Qq9K9NR6xUpA5yqXGJInMjXp01yoAbKMhs08uPrg3G6ZPUYDr7dmxK3Gp75vQyNziNcpwv9c71LZjoatApdkVO4XrhKcYXNcWrtqTeujzZinVN4f5r0ttGIcGglCidcRyBrPLa1AXvRhKPjSsDWCLWoDr06GvahoOVY0LcXcTEhu82Mgn9oMtaEOzfsUG8pKOHxpNCq9mshz6guv0jZJexh45.k6d6j5MStPq6%2FbR0U%2Fu4wwjJq7GiQRJ%2Bw8XjltMn8g0; Path=/; Domain=localhost; HttpOnly;
-jwt=s%3AeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjIzNDUwODliMzJkNTNkZDQyZWM4YmYiLCJpYXQiOjE1OTcwNTMxOTcsImV4cCI6MTU5NzA1MzQ5N30.vKWmag1ExLRqwxd4KVuajYe6Nj6xZQhvbT4worDpRTc.IxclhJq%2FSt80i7L5z1Nd0CmCNL11st4PmyHUGvDNHB4; Path=/; Domain=localhost; HttpOnly;
-refreshToken=s%3ALBzd0HAnjFpcloaIdaHxcC03ZpiOH9gyCG9xpvaqCGylUerrrekjG727GoVLOeqyoZbMaeLooKdHM0kEhfa3brIdCUBgOAkdgHFwn9Yw2860piqInkpwCOh3gwzF4cqBTWdrwGNYlZLTRF7vvUi44d6Qj6uYat4lNrvYZI1GA2hrFjx6GO0jkwjg6kMq0JhR4TcX3unEU6K5xJmIt1grTVfARHXRVjvNMrblKJcRu4XIJqG0lrdXAmTLkPZGxp7c.7zxk8jjKsiPRoCdoRkVqyHNQIqtDre84x03QmStPFo4; Path=/; Domain=localhost; HttpOnly;
-*/
+
   const userFound = await User.findById(validateToken.userId);
 
   if (!userFound) {
@@ -122,14 +119,20 @@ refreshToken=s%3ALBzd0HAnjFpcloaIdaHxcC03ZpiOH9gyCG9xpvaqCGylUerrrekjG727GoVLOeq
     return next(new AppError('Refresh Token caducado o incorrecto', 401));
   }
 
-  signAndSendTokens(req, res, userFound, false);
+  signAndSendTokens(
+    req,
+    res,
+    { id: userFound._id, username: userFound.username, email: userFound.email },
+    false
+  );
 });
 
-/* 
-TODO Implementar comporobación expiración JWT
-*/
 exports.registro = catchAsync(async (req, res, next) => {
   const { username, email, password, confirmPassword } = req.body;
+
+  if (!username || !email || !password || !confirmPassword) {
+    return next(new AppError('No se han indicado todos los campos requeridos'));
+  }
 
   const user = await User.create(
     {
@@ -141,7 +144,6 @@ exports.registro = catchAsync(async (req, res, next) => {
     { select: '_id username email' }
   );
 
-  // Éxito. Enviar respuesta + token
   signAndSendTokens(req, res, next, {
     id: user._id,
     username: user.username,
@@ -182,8 +184,6 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
-  // TODO: identificar usuario por el token
-
   res.status(204).clearCookie('jwt').clearCookie('refreshToken').json({
     status: 'success',
     message: 'Usuario ha cerrado sesión con éxito',
