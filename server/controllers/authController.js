@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 const randtoken = require('rand-token');
 const { promisify } = require('util');
 
@@ -14,7 +13,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
   const token = jwt.sign({ userId: user.id }, process.env.DATABASE_JWT_SECRET, {
     expiresIn: '5 min',
   });
-  const statusCode = req.url === '/signup' ? 201 : 200;
+  const statusCode = req.url === '/registro' ? 201 : 200;
 
   // No enviar refreshToken en caso de /refresh endpoint
   if (issueRefreshToken) {
@@ -95,8 +94,8 @@ exports.refresh = catchAsync(async (req, res, next) => {
   }
 
   if (
-    userFound.refreshToken !== refreshToken ||
-    userFound.refreshTokenExpiresAt < Date.now()
+    req.user.refreshToken !== refreshToken ||
+    req.user.refreshTokenExpiresAt < Date.now()
   ) {
     return next(new AppError('Refresh Token caducado o incorrecto', 401));
   }
@@ -104,7 +103,7 @@ exports.refresh = catchAsync(async (req, res, next) => {
   signAndSendTokens(
     req,
     res,
-    { id: userFound._id, username: userFound.username, email: userFound.email },
+    { id: req.user._id, username: req.user.username, email: req.user.email },
     false
   );
 });
@@ -116,17 +115,16 @@ exports.registro = catchAsync(async (req, res, next) => {
     return next(new AppError('No se han indicado todos los campos requeridos'));
   }
 
-  const user = await User.create(
-    {
-      username,
-      email,
-      password,
-      confirmPassword,
-    },
-    { select: '_id username email' }
-  );
+  const user = await User.create({
+    username,
+    email,
+    password,
+    confirmPassword,
+  });
 
-  signAndSendTokens(req, res, next, {
+  console.log(JSON.stringify(user));
+
+  signAndSendTokens(req, res, {
     id: user._id,
     username: user.username,
     email: user.email,
