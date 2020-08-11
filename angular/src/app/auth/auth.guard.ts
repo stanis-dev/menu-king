@@ -5,32 +5,34 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
+  isLoggedIn: boolean;
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean> {
-    return this.checkLogin(state.url);
-  }
-
-  checkLogin(path): boolean {
-    if (this.authService.user && path === '/auth') {
-      this.router.navigate(['recetas']);
-      return false;
-    } else if (this.authService.user && path !== '/auth') {
-      return true;
-    } else if (!this.authService.user && path === '/auth') {
-      return true;
-    } else {
-      return false;
-    }
+    this.authService.user.subscribe((user) => {
+      console.log('user is: ' + user);
+      if (user && state.url === '/auth') {
+        this.router.navigate(['recetas']);
+        this.isLoggedIn = false;
+      } else if (user && state.url !== '/auth') {
+        this.isLoggedIn = true;
+      } else if (!user && state.url === '/auth') {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
 
     // TODO: display error if user attempt to acces forbidden route
+
+    return this.isLoggedIn;
   }
 }

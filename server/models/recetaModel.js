@@ -11,6 +11,7 @@ const recetaModel = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.ObjectId,
+    required: [true, 'El id de usuario es obligatorio'],
     ref: 'User',
   },
   ingredientes: [

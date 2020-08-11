@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly JWT_TOKEN = 'JWT_TOKEN';
-  private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-  loggedUser: string;
-  /* user = new BehaviorSubject<User>(null); */
-
+  user = new BehaviorSubject<string>(null);
   // TODO --> cambiar a Observable??
   isLoading = new Subject<boolean>();
+  refreshTokenExpiration: Date;
   // TODO --> quitar loading de aquí y limitarlo al componente
 
   // TODO --> Add user interface for TP.
@@ -33,13 +30,12 @@ export class AuthService {
       new Date(Date.now() + 1000)
     );
 
-    localStorage.setItem('user', JSON.stringify(newUser));
     this.isLoading.next(false);
-    /* this.user.next(newUser); */
+    this.user.next(newUser.username);
     this.router.navigate(['recetas']);
   }
 
-  async handleError(error) {
+  async handleError(error): Promise<void> {
     this.isLoading.next(false);
     console.log(error);
   }
@@ -53,26 +49,32 @@ export class AuthService {
   }
 
   autoLogin() {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (!storedUser) {
-      /*  this.user.next(null); */
+    const authCookie = this.getCookie();
+    console.log(authCookie);
+    if (!authCookie) {
+      this.user.next(null);
     }
 
-    /* const userClass = new User(
-      storedUser.id,
-      storedUser.username,
-      storedUser.email,
-      storedUser._tokenExpirationDate
-    ); */
+    this.user.next(authCookie);
+  }
 
-    this.loggedUser = storedUser.id;
+  refreshToken(): Observable<any> {
+    console.log('refreshing');
+    return this.http.get<any>('/api/v1/users/refresh');
   }
 
   logout() {
+    this.http.get<any>('/api/v1/users/logout').subscribe();
     this.user.next(null);
-    localStorage.removeItem('user');
     this.router.navigate(['auth']);
+  }
+
+  autoLogout() {
+    const authCookie = this.getCookie();
+
+    if (!authCookie) {
+      this.user.next(null);
+    }
   }
 
   signup(signupForm: {
@@ -87,8 +89,13 @@ export class AuthService {
       .pipe(tap((resData) => this.handleAuth(resData)));
   }
 
-  isAuthenticated(): boolean {
-    document.cookie = 'username=John Doe';
+  getCookie(): string {
+    return document.cookie
+      .split('; ')
+      .filter((cookie) => cookie.startsWith('session='))[0];
+  }
+
+  /* isAuthenticated(): boolean {
     const token = document.cookie
       .split('; ')
       .filter((cookie) => {
@@ -98,5 +105,5 @@ export class AuthService {
     console.log(token);
 
     return true;
-  }
+  } */
 }

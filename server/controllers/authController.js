@@ -32,7 +32,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
       expiresIn: Date.now() + 1296000000,
       signed: true,
       httpOnly: true,
-      secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+      secure: req.secure,
     });
   }
 
@@ -43,7 +43,10 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
       expiresIn: Date.now() + 300000,
       signed: true,
       httpOnly: true,
-      secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+      secure: req.secure,
+    })
+    .cookie('session', `${user.id}.${Date.now() + 300000}`, {
+      expiresIn: Date.now() + 300000,
     })
     .json({
       status: 'success',
@@ -87,15 +90,26 @@ exports.authenticateUser = catchAsync(async (req, res, next) => {
 });
 
 exports.refresh = catchAsync(async (req, res, next) => {
+  const token = req.signedCookies.jwt;
   const refreshToken = req.signedCookies.refreshToken;
 
-  if (!refreshToken) {
-    return next(new AppError('Refresh token no encontrado', 401));
+  if (!refreshToken || !token) {
+    return next(new AppError('Faltan datos en las cookies', 401));
   }
 
+  const userDecoded = await promisify(jwt.verify)(
+    token,
+    process.env.DATABASE_JWT_SECRET,
+    {
+      ignoreExpiration: true,
+    }
+  );
+
+  const userFound = await User.findById(userDecoded.userId);
+
   if (
-    req.user.refreshToken !== refreshToken ||
-    req.user.refreshTokenExpiresAt < Date.now()
+    userFound.refreshToken !== refreshToken ||
+    userFound.refreshTokenExpiresAt < Date.now()
   ) {
     return next(new AppError('Refresh Token caducado o incorrecto', 401));
   }
@@ -103,7 +117,7 @@ exports.refresh = catchAsync(async (req, res, next) => {
   signAndSendTokens(
     req,
     res,
-    { id: req.user._id, username: req.user.username, email: req.user.email },
+    { id: userFound._id, username: userFound.username, email: userFound.email },
     false
   );
 });

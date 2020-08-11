@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { RecetasService } from './recetas.service';
@@ -8,7 +8,7 @@ import { RecetasService } from './recetas.service';
   templateUrl: './recetas.component.html',
   styleUrls: ['./recetas.component.scss'],
 })
-export class RecetasComponent implements OnInit {
+export class RecetasComponent implements OnInit, OnDestroy {
   analisys;
   recetaForm: FormGroup = this.fb.group({
     recetaNombre: ['', Validators.required],
@@ -21,20 +21,29 @@ export class RecetasComponent implements OnInit {
     ]),
   });
   formSub: Subscription;
+  receteSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private recetasService: RecetasService
   ) {}
 
-  ngOnInit(): void {
-    /* this.formSub = this.recetaNueva.valueChanges.subscribe((val) => {
-      console.log(val);
-    }); */
-    console.log(this.ingredientes);
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
+    const recetaAnalizada = {
+      ...this.recetaForm.value,
+      analisisNutricional: { ...this.analisys },
+    };
+
+    this.receteSub = this.recetasService
+      .saveReceta(recetaAnalizada)
+      .subscribe((receta) => {
+        console.log(receta);
+      });
+  }
+
+  onAnalize() {
     let ingr = [];
     this.recetaForm.value.ingredientes.map((ingrediente) => {
       ingr.push(
@@ -44,13 +53,10 @@ export class RecetasComponent implements OnInit {
 
     const newReceta = {
       title: this.recetaForm.value.recetaNombre,
-      // yield?
       ingr,
     };
 
-    console.log(newReceta);
     this.recetasService.fetchReceta(newReceta).subscribe((response) => {
-      console.log(response);
       this.analisys = response;
     });
   }
@@ -66,6 +72,20 @@ export class RecetasComponent implements OnInit {
 
   onDeleteIngredient(i: number): void {
     this.ingredientes.removeAt(i);
+  }
+
+  getBackground() {
+    const bg = this.recetaForm.get('recetaImagen').value;
+
+    if (bg === '') {
+      return '../../assets/img/receta.jpg';
+    }
+
+    return bg;
+  }
+
+  ngOnDestroy() {
+    this.receteSub.unsubscribe();
   }
 
   get ingredientes(): FormArray {

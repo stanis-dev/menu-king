@@ -3,7 +3,7 @@
     <div
       class="receta-header"
       [ngStyle]="{
-        background: 'url(' + recetaBackground.value + ')',
+        background: 'url(' + getBackground() + ')',
         backgroundSize: 'contain'
       }"
     >
@@ -56,9 +56,16 @@
         </button>
       </div>
     </div>
+    <button
+      type="button"
+      [ngStyle]="{ marginBottom: '15px', minHeight: '45px' }"
+      (click)="onAnalize()"
+    >
+      Analizar
+    </button>
     <div class="botones">
-      <button type="submit">Guardar</button>
-      <button disabled>Descartar</button>
+      <button type="submit" [disabled]="!recetaForm.valid">Guardar</button>
+      <button type="button">Descartar</button>
     </div>
   </form>
   <app-analisis [analisis]="analisys"></app-analisis>

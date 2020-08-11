@@ -9,10 +9,10 @@ const {
 
 router.post('/registro', registro);
 router.post('/login', login);
+router.get('/refresh', refresh);
 
 router.use(authenticateUser);
 
-router.post('/logout', logout);
-router.post('/refresh', refresh);
+router.get('/logout', logout);
 
 module.exports = router;

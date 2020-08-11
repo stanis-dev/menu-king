@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecetasService {
@@ -132,5 +133,14 @@ export class RecetasService {
           return analisis;
         })
       );
+  }
+
+  saveReceta(receta): Observable<object> {
+    return this.httpClient.post('/api/v1/receta', receta).pipe(
+      map((recetaResponse) => {
+        console.log(recetaResponse);
+        return recetaResponse;
+      })
+    );
   }
 }
