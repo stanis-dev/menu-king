@@ -33,8 +33,8 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
+  // TODO: Revisar
   private handle401Error(req: HttpRequest<any>, next: HttpHandler) {
-    document.cookie = null;
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
         switchMap((response) => {
           console.log('response ' + JSON.stringify(response));
           this.isRefreshing = false;
-          this.refreshTokenSubject.next(document.cookie);
+          this.refreshTokenSubject.next(this.authService.getCookie());
 
           return next.handle(req);
         })

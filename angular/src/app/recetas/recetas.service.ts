@@ -61,9 +61,6 @@ export class RecetasService {
               case 'LOW_FAT':
                 analisis.etiquetas.push('baja en grasas');
                 break;
-              case 'HIGH_PROTEIN':
-                analisis.etiquetas.push('alto contenido en proteínas');
-                break;
               case 'LOW_CARB':
                 analisis.etiquetas.push('bajo en carbohidratos');
                 break;
@@ -78,9 +75,6 @@ export class RecetasService {
                 break;
               case 'PEANUT_FREE':
                 analisis.alergenos.push('no contiene cacahuetes');
-                break;
-              case 'TREE_NUT_FREE':
-                analisis.alergenos.push('no contiene frutos secos');
                 break;
               case 'TREE_NUT_FREE':
                 analisis.alergenos.push('no contiene alcohol');
@@ -101,9 +95,6 @@ export class RecetasService {
               case 'LOW_FAT':
                 analisis.etiquetas.push('baja en grasas');
                 break;
-              case 'HIGH_PROTEIN':
-                analisis.etiquetas.push('alto contenido en proteínas');
-                break;
               case 'LOW_CARB':
                 analisis.etiquetas.push('bajo en carbohidratos');
                 break;
@@ -118,9 +109,6 @@ export class RecetasService {
                 break;
               case 'PEANUT_FREE':
                 analisis.alergenos.push('no contiene cacahuetes');
-                break;
-              case 'TREE_NUT_FREE':
-                analisis.alergenos.push('no contiene frutos secos');
                 break;
               case 'TREE_NUT_FREE':
                 analisis.alergenos.push('no contiene alcohol');
@@ -140,6 +128,15 @@ export class RecetasService {
       map((recetaResponse) => {
         console.log(recetaResponse);
         return recetaResponse;
+      })
+    );
+  }
+
+  getRecetas() {
+    return this.httpClient.get<any>('/api/v1/receta').pipe(
+      map((recetasResponse) => {
+        this.recetasUsuario = recetasResponse.data;
+        return recetasResponse;
       })
     );
   }

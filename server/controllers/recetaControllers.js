@@ -12,3 +12,13 @@ exports.addReceta = catchAsync(async (req, res, next) => {
     data,
   });
 });
+
+exports.getRecetas = catchAsync(async (req, res, next) => {
+  const data = await Receta.find({ user: req.user._id });
+
+  res.status(201).json({
+    status: 'ok',
+    results: data.length,
+    data,
+  });
+});

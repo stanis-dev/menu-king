@@ -136,8 +136,6 @@ exports.registro = catchAsync(async (req, res, next) => {
     confirmPassword,
   });
 
-  console.log(JSON.stringify(user));
-
   signAndSendTokens(req, res, {
     id: user._id,
     username: user.username,
