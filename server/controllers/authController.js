@@ -9,7 +9,8 @@ const User = require('../models/userModel');
 
 // Funciones auxiliares
 const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
-  // Firmar jwt, crear refresh token y definir el código status
+  try {
+  // Firmar jwt, crear refresh token y definir el código del status
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
     expiresIn: '5 min',
   });
@@ -27,7 +28,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
       }
     );
 
-    // Enviar refreshToken, caduca en 15 días
+    // Enviar refreshToken, cookie caduca en 15 días
     res.cookie('refreshToken', refreshToken, {
       expiresIn: Date.now() + 1296000000,
       signed: true,
@@ -36,7 +37,7 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
     });
   }
 
-  // Enviar la respuesta. jwt caduca en 5 min
+  // Enviar jwt, cookie caduca en 5 min
   res
     .status(statusCode)
     .cookie('jwt', token, {
@@ -52,13 +53,15 @@ const signAndSendTokens = async (req, res, user, issueRefreshToken = true) => {
       status: 'success',
       user,
     });
+  } catch (err) {
+    console.error(err)
+  }
 };
 
 exports.authenticateUser = catchAsync(async (req, res, next) => {
   const token = req.signedCookies.jwt;
 
   if (!token) {
-    this.logout();
     return next(new AppError('Usuario no identificado', 401));
   }
 
@@ -75,13 +78,11 @@ exports.authenticateUser = catchAsync(async (req, res, next) => {
   const userFound = await User.findById(validatedToken.userId, '-password -_v');
 
   if (!userFound) {
-    this.logout();
     next(new AppError('No existe usuario relacionado con este token', 401));
   }
 
   //TODO: implementar ruta cambio de contraseña
   if (userFound.passwordChangedAt > validatedToken.iat) {
-    this.logout();
     new AppError(
       'La contraseña del usuario ha cambiado después de emitir el token',
       401
@@ -97,7 +98,6 @@ exports.refresh = catchAsync(async (req, res, next) => {
   const refreshToken = req.signedCookies.refreshToken;
 
   if (!refreshToken || !token) {
-    this.logout();
     return next(new AppError('Faltan datos en las cookies', 401));
   }
 
@@ -115,7 +115,6 @@ exports.refresh = catchAsync(async (req, res, next) => {
     userFound.refreshToken !== refreshToken ||
     userFound.refreshTokenExpiresAt < Date.now()
   ) {
-    this.logout();
     return next(new AppError('Refresh Token caducado o incorrecto', 401));
   }
 
@@ -181,13 +180,10 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
-
-
-
   if(req.signedCookies.jwt) {
-    const token = req.signedCookies.jwt;
-
-    const userDecoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+    const userDecoded = await promisify(jwt.verify)(req.signedCookies.jwt, process.env.JWT_SECRET, {
+      ignoreExpiration: true
+    })
 
     await User.findByIdAndUpdate(userDecoded.userId, {
       refreshToken: undefined,

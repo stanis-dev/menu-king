@@ -11,6 +11,14 @@
     width: 100%;
     max-width: 490px;
     border-right: white 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    .resumen-upper {
+      width: 100%;
+    }
 
     .menu-title {
       height: 200px;
@@ -19,7 +27,6 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: left;
-
 
 
       h3 {
@@ -48,10 +55,129 @@
         background-color: rgba(255, 255, 255, 0.2)
       }
     }
+
+    .resumen-container {
+
+      h4 {
+        margin-bottom: 0;
+        margin-right: 25px;
+        font-weight: 100;
+        text-align: end;
+
+      };
+      .resumen-menu {
+        border-top: 1px solid white;
+        display: flex;
+        flex-direction: column;
+
+        .table-col {
+          display: flex;
+          border-top: 1px rgba(255,255,255,0.25) solid;
+
+          p {
+            width: 100%;
+            padding-left: 20px;
+            font-size: 0.8rem;
+            border-right: 1px rgba(255,255,255,0.25) solid;
+          }
+        }
+      }
+    }
   }
 
   .right-side {
     width: 100%;
     max-width: 490px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    .course-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      letter-spacing: 2px;
+      font-weight: 100;
+      border-bottom: 1px solid white;
+
+
+      h3 {
+        font-weight: 100;
+        text-transform: capitalize;
+        font-size: 2rem;
+        margin: 0;
+      }
+
+      a {
+        font-size: 1.3rem;
+        border: 1px white solid;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        & img {
+          margin-bottom: -6px;
+        }
+
+
+        &:hover {
+          background-color: white;
+          color: black;
+          font-weight: 400;
+        }
+      }
+    }
+
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 35px 0;
+
+      li {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 2rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+
+        &:hover {
+
+          & p {
+            color: orange;
+          }
+        }
+
+        a {
+          font-size: 1.2rem;
+          cursor: pointer;
+          margin-right: 5px;
+
+          &.edit-btn {
+            color: #478647;
+          }
+
+          &.delete-btn {
+            color: #b75858;
+          }
+        }
+
+        p {
+          display: inline;
+          line-height: 1.2rem;
+          font-family: "Montserrat", sans-serif;
+          font-size: 1rem;
+          text-indent: 20px;
+        }
+      }
+    }
   }
 }
