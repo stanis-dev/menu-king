@@ -1,25 +1,5 @@
 .body-container {
-  & .blurred {
-    &::before {
-      filter: blur(10px) brightness(20%);
-      top: 0;
-      left: 0;
-      content: "";
-      position: absolute;
-      background-image: url("../assets//img/hero-img.jpg");
-      background-color: rgba(201, 76, 76, 0.4);
-      transform: scale(1.03);
-      background-position: center;
-      min-height: 100vh;
-      width: 100%;
-      z-index: -10;
-      transition-delay: 1s;
-      transition-duration: 3s;
-    }
-  }
-
-  background-image: url("../assets//img/hero-img.jpg");
-  filter: blur(0px) brightness(100%);
+  background-image: url("../assets/img/hero-img.jpg");
   background-position: center;
   position: relative;
   overflow: hidden;
@@ -29,7 +9,12 @@
   min-height: 100vh;
   z-index: 200;
 
+  &.blurred {
+    background-image: url("../assets/img/hero-img-blurred.jpg");
+  }
+
   .content {
     z-index: 900;
+    height: 100%;
   }
 }

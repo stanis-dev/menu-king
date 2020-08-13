@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import {Subscriber, Subscription} from 'rxjs';
 import { RecetasService } from './recetas.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class RecetasComponent implements OnInit, OnDestroy {
     ]),
   });
   formSub: Subscription;
-  receteSub: Subscription;
+  recetaSub: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -30,20 +30,20 @@ export class RecetasComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {}
 
-  onSubmit() {
+  onSubmit(): void {
     const recetaAnalizada = {
       ...this.recetaForm.value,
       analisisNutricional: { ...this.analisys },
     };
 
-    this.receteSub = this.recetasService
+    this.recetaSub = this.recetasService
       .saveReceta(recetaAnalizada)
       .subscribe((receta) => {
         console.log(receta);
       });
   }
 
-  onAnalize() {
+  onAnalize(): void {
     let ingr = [];
     this.recetaForm.value.ingredientes.map((ingrediente) => {
       ingr.push(
@@ -56,7 +56,7 @@ export class RecetasComponent implements OnInit, OnDestroy {
       ingr,
     };
 
-    this.recetasService.fetchReceta(newReceta).subscribe((response) => {
+    this.recetasService.analizeReceta(newReceta).subscribe((response) => {
       this.analisys = response;
     });
   }
@@ -74,7 +74,7 @@ export class RecetasComponent implements OnInit, OnDestroy {
     this.ingredientes.removeAt(i);
   }
 
-  getBackground() {
+  getBackground(): string {
     const bg = this.recetaForm.get('recetaImagen').value;
 
     if (bg === '') {
@@ -84,15 +84,15 @@ export class RecetasComponent implements OnInit, OnDestroy {
     return bg;
   }
 
-  ngOnDestroy() {
-    this.receteSub.unsubscribe();
+  ngOnDestroy(): void {
+
   }
 
   get ingredientes(): FormArray {
     return this.recetaForm.get('ingredientes') as FormArray;
   }
 
-  onPrePopulateRecipe() {
+  onPrePopulateRecipe(): void {
     const ingredients = [
       { ingrediente: 'Chicken', ingredienteCantidad: 200 },
       { ingrediente: 'Potatoes', ingredienteCantidad: 500 },

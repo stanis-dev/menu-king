@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecetasService {
@@ -10,7 +10,7 @@ export class RecetasService {
   constructor(private httpClient: HttpClient) {}
 
   // TODO modelo receta
-  fetchReceta(receta) {
+  analizeReceta(receta) {
     return this.httpClient
       .post(
         'https://api.edamam.com/api/nutrition-details?app_id=29beb672&app_key=ef4964969c8e6289f6259984b9531070',
@@ -77,7 +77,10 @@ export class RecetasService {
                 analisis.alergenos.push('no contiene cacahuetes');
                 break;
               case 'TREE_NUT_FREE':
-                analisis.alergenos.push('no contiene alcohol');
+                analisis.alergenos.push('no contiene frutos secos');
+                break;
+              case 'ALCOHOL_FREE':
+                analisis.alergenos.push('no contiene alcoholes');
                 break;
               default:
                 return;
@@ -111,7 +114,10 @@ export class RecetasService {
                 analisis.alergenos.push('no contiene cacahuetes');
                 break;
               case 'TREE_NUT_FREE':
-                analisis.alergenos.push('no contiene alcohol');
+                analisis.alergenos.push('no contiene frutos secos');
+                break;
+              case 'ALCOHOL_FREE':
+                analisis.alergenos.push('no contiene alcoholes');
                 break;
               default:
                 return;
@@ -132,7 +138,7 @@ export class RecetasService {
     );
   }
 
-  getRecetas() {
+  getRecetas(): Observable<any> {
     return this.httpClient.get<any>('/api/v1/receta').pipe(
       map((recetasResponse) => {
         this.recetasUsuario = recetasResponse.data;

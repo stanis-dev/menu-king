@@ -1,5 +1,5 @@
-<div class="body-container">
-  <div class="content blurred" [ngClass]="{ blurred: isAuthenticated }">
+<div class="body-container" [ngClass]="{ blurred: isAuthenticated }">
+  <div class="content" >
     <app-header></app-header>
     <router-outlet></router-outlet>
   </div>
