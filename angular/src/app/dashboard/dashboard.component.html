@@ -1,112 +1,12 @@
 <div class="dashboard">
   <div class="resumen">
     <div class="resumen-upper">
-
-
       <div class="menu-title">
-        <h3>Tus menus: </h3>
+        <h3>Tus menus:</h3>
       </div>
-      <a class="menu-option"><p class="menu-text">Menu vegetariano, cena de navidad</p> ➤</a>
-      <a class="menu-option active"><p class="menu-text">Menu para amantes del picante</p>➤</a>
-      <a class="menu-option"><p class="menu-text">Menu del día, semana 1-7 septiembre</p>➤</a>
-      <a class="menu-option"><p class="menu-text">Experimental, para la reunion familiar</p>➤</a>
-      <a class="menu-option"><p class="menu-text">Menu especial, fines de semana, septiembre</p>➤</a>
+      <app-menu-list></app-menu-list>
     </div>
-
-    <div class="resumen-container">
-      <h4>Datos nutricionales p/ comensal</h4>
-      <div class="resumen-menu">
-
-        <div class="table-col">
-          <p>PAX 6</p>
-          <p>Kcal: 1450</p>
-          <p>Proteínas: 130 gr</p>
-        </div>
-        <div class="table-col">
-          <p>Carbohidratos: 430 gr</p>
-          <p>de los cuales azucares: 80 gr</p>
-        </div>
-        <div class="table-col">
-          <p>Grasas: 233 gr</p>
-          <p>de ellas saturadas: 33 gr</p>
-        </div>
-        <div class="table-col">
-          <p>Observaciones: Contiene cacahuetes, Contiene soja</p>
-        </div>
-
-
-
-
-
-      </div>
-    </div>
-
-
+    <app-datos-nutricionales></app-datos-nutricionales>
   </div>
-  <div class="right-side">
-    <div class="entrante">
-      <div class="course-title">
-        <h3>Entrantes</h3>
-        <a>Añadir <img height="30px" src="../../assets/img/cuisine.svg" alt="añadir un plato"></a>
-      </div>
-      <ul>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Corte fino de jamón ibérico con tomates cherry  Corte fino de jamón ibérico con tomates cherry</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Ensalada con aguacate y frutos secos</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Ensalada con aguacate y frutos secos</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Corte fino de jamón ibérico con tomates cherry</p></div>
-        </li>
-      </ul>
-    </div>
-    <div class="principales">
-      <div class="course-title">
-        <h3>Principales</h3>
-        <a>Añadir <img height="30px" src="../../assets/img/cuisine.svg" alt="añadir un plato"></a>
-      </div>
-      <ul>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Corte fino de jamón ibérico con tomates cherry</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Ensalada con aguacate y frutos secos</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Corte fino de jamón ibérico con tomates cherry</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Ensalada con aguacate y frutos secos</p></div>
-        </li>
-      </ul>
-    </div>
-    <div class="postre">
-      <div class="course-title">
-        <h3>Postre</h3>
-        <a>Añadir <img height="30px" src="../../assets/img/cuisine.svg" alt="añadir un plato"></a>
-      </div>
-      <ul>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Corte fino de jamón ibérico con tomates cherry</p></div>
-        </li>
-        <li>
-          <div><a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-            <p>Ensalada con aguacate y frutos secos</p></div>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <app-recetas-lista></app-recetas-lista>
 </div>

@@ -1,0 +1,25 @@
+.resumen-container {
+  h4 {
+    margin-bottom: 0;
+    margin-right: 25px;
+    font-weight: 100;
+    text-align: end;
+  }
+  .resumen-menu {
+    border-top: 1px solid white;
+    display: flex;
+    flex-direction: column;
+
+    .table-col {
+      display: flex;
+      border-top: 1px rgba(255, 255, 255, 0.25) solid;
+
+      p {
+        width: 100%;
+        padding-left: 20px;
+        font-size: 0.8rem;
+        border-right: 1px rgba(255, 255, 255, 0.25) solid;
+      }
+    }
+  }
+}

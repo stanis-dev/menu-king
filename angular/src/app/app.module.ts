@@ -16,6 +16,9 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AnalisisComponent } from './recetas/analisis/analisis.component';
 
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { MenuListComponent } from './dashboard/menu-list/menu-list.component';
+import { DatosNutricionalesComponent } from './dashboard/datos-nutricionales/datos-nutricionales.component';
+import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     LoginComponent,
     SignupComponent,
     AnalisisComponent,
+    MenuListComponent,
+    DatosNutricionalesComponent,
+    RecetasListaComponent,
   ],
   imports: [
     BrowserModule,
