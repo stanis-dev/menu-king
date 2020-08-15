@@ -1,0 +1,44 @@
+.bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .popup {
+    height: 380px;
+    width: 470px;
+    background-color: rgb(14, 13, 13);
+    border-radius: 20px;
+    border: 2px solid white;
+    text-align: center;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 100;
+    }
+
+    form {
+      margin-top: 15px;
+      justify-content: space-between;
+      align-items: center;
+
+      input {
+        height: 45px;
+        width: 300px;
+      }
+
+      .botones {
+        margin-top: 25px;
+        button {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}

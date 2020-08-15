@@ -19,6 +19,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { MenuListComponent } from './dashboard/menu-list/menu-list.component';
 import { DatosNutricionalesComponent } from './dashboard/datos-nutricionales/datos-nutricionales.component';
 import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
+import { CrearMenuComponent } from './dashboard/crear-menu/crear-menu.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.c
     MenuListComponent,
     DatosNutricionalesComponent,
     RecetasListaComponent,
+    CrearMenuComponent,
   ],
   imports: [
     BrowserModule,
