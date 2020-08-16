@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
+import { UtilsService } from './shared/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -11,19 +12,23 @@ export class AppComponent implements OnInit, OnDestroy {
   userSub: Subscription;
   isAuthenticated: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private utilsService: UtilsService
+  ) {}
 
   ngOnInit(): void {
     this.authService.autoLogin();
     this.authService.autoLogout();
 
     this.userSub = this.authService.user.subscribe((user) => {
-      if (user) {
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
+      this.isAuthenticated = !!user;
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  documentClick(event: any): void {
+    this.utilsService.documentClickedTarget.next(event.target);
   }
 
   ngOnDestroy(): void {

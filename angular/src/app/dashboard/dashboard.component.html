@@ -1,9 +1,14 @@
 <div class="dashboard">
-  <app-crear-menu *ngIf="modoCrearMenu"></app-crear-menu>
+  <div class="bg" *ngIf="modoCrearMenu">
+    <app-crear-menu #popupMenu></app-crear-menu>
+  </div>
   <div class="resumen">
     <div class="resumen-upper">
       <div class="menu-title">
         <h3>Tus menus:</h3>
+        <button type="button" class="createMenuButton" (click)="onCreateMenu()">
+          Crear Menu
+        </button>
       </div>
       <app-menu-list></app-menu-list>
     </div>

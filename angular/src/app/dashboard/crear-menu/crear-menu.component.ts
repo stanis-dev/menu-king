@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-menu',
@@ -7,9 +7,9 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./crear-menu.component.scss'],
 })
 export class CrearMenuComponent {
-  menuForm = this.fb.group({
-    menuName: [''],
-    menuPersonas: [0],
+  menuForm: FormGroup = this.fb.group({
+    menuName: ['', Validators.required],
+    menuPersonas: [0, [Validators.required]],
   });
 
   constructor(private fb: FormBuilder) {}

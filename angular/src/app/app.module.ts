@@ -20,6 +20,7 @@ import { MenuListComponent } from './dashboard/menu-list/menu-list.component';
 import { DatosNutricionalesComponent } from './dashboard/datos-nutricionales/datos-nutricionales.component';
 import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
 import { CrearMenuComponent } from './dashboard/crear-menu/crear-menu.component';
+import { ClosePopupDirective } from './shared/closePopup.directive';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CrearMenuComponent } from './dashboard/crear-menu/crear-menu.component'
     DatosNutricionalesComponent,
     RecetasListaComponent,
     CrearMenuComponent,
+    ClosePopupDirective,
   ],
   imports: [
     BrowserModule,

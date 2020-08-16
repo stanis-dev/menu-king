@@ -7,6 +7,18 @@
   background-color: rgba(0, 0, 0, 0.6);
   position: relative;
 
+  .bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .resumen {
     width: 100%;
     max-width: 490px;
@@ -27,6 +39,9 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       h3 {
         padding-top: 45px;
@@ -35,6 +50,11 @@
         font-size: 3rem;
         line-height: 3rem;
         font-weight: 600;
+      }
+
+      button {
+        align-self: flex-end;
+        width: 40%;
       }
     }
   }

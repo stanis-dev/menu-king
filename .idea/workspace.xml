@@ -23,16 +23,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72345de3-9f0b-46f2-bb0f-0e357d84e20f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/angular/src/app/shared/closePopup.directive.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/angular/src/app/shared/utils.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/models/menuModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/crear-menu/crear-menu.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/recetas/recetas.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/recetas/recetas.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/recetaModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/recetaModel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +108,10 @@
       <workItem from="1597240590783" duration="2393000" />
       <workItem from="1597243022816" duration="8690000" />
       <workItem from="1597268896284" duration="32051000" />
-      <workItem from="1597523021886" duration="5978000" />
+      <workItem from="1597523021886" duration="6135000" />
+      <workItem from="1597567636949" duration="4000" />
+      <workItem from="1597567656039" duration="10000" />
+      <workItem from="1597567684841" duration="20679000" />
     </task>
     <servers />
   </component>
@@ -148,10 +154,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="688" y="86" key="SettingsEditor/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1597523551611" />
-    <state x="616" y="243" key="run.anything.popup" timestamp="1597339722530">
+    <state x="616" y="243" key="run.anything.popup" timestamp="1597577716333">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="616" y="243" key="run.anything.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1597339722530" />
+    <state x="616" y="243" key="run.anything.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1597577716333" />
     <state x="851" y="388" key="scopes" timestamp="1597522686216">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
