@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecetasService {
@@ -25,25 +25,14 @@ export class RecetasService {
             caloriasRacion: Math.round(
               respuestaRecetas.calories / respuestaRecetas.yield
             ),
-            prot: Math.round(
-              respuestaRecetas.totalNutrients.PROCNT.quantity /
-                respuestaRecetas.yield
-            ),
-            carbs: Math.round(
-              respuestaRecetas.totalNutrients.CHOCDF.quantity /
-                respuestaRecetas.yield
-            ),
+            prot: Math.round(respuestaRecetas.totalNutrients.PROCNT.quantity),
+            carbs: Math.round(respuestaRecetas.totalNutrients.CHOCDF.quantity),
             azucares: Math.round(
-              respuestaRecetas.totalNutrients.SUGAR.quantity /
-                respuestaRecetas.yield
+              respuestaRecetas.totalNutrients.SUGAR.quantity
             ),
-            grasas: Math.round(
-              respuestaRecetas.totalNutrients.FAT.quantity /
-                respuestaRecetas.yield
-            ),
+            grasas: Math.round(respuestaRecetas.totalNutrients.FAT.quantity),
             saturadas: Math.round(
-              respuestaRecetas.totalNutrients.FASAT.quantity /
-                respuestaRecetas.yield
+              respuestaRecetas.totalNutrients.FASAT.quantity
             ),
             etiquetas: [],
             avisos: respuestaRecetas.cautions,
