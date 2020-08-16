@@ -62,6 +62,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     } else {
       console.log('clicked');
       this.modoCrearMenu = false;
+      this.clickSub.unsubscribe();
     }
   }
 

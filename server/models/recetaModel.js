@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const recetaModel = new mongoose.Schema({
+const recetaSchema = new mongoose.Schema({
   recetaNombre: {
     type: String,
     required: [true, "Por favor, introduzca el nombre de la receta"],
@@ -73,6 +73,17 @@ const recetaModel = new mongoose.Schema({
   },
 });
 
-const Receta = mongoose.model("Receta", recetaModel);
+/*recetaSchema.statics.calcNutrientes = function (menu) {
+  this.aggregate([
+    {
+      $match: { menu },
+    },
+    ($group: {
+      _id: null,
+    }),
+  ]);
+};*/
+
+const Receta = mongoose.model("Receta", recetaSchema);
 
 module.exports = Receta;
