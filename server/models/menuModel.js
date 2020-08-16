@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema({
   menuName: {
-    type: string,
+    type: String,
     required: [true, "Indique el nombre del menu"],
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    required: [true, "Debe indicarse el usuario propietario del menu"],
   },
   pax: {
     type: Number,
