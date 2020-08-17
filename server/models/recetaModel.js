@@ -74,6 +74,7 @@ const recetaSchema = new mongoose.Schema({
   },
 });
 
+//                 Buscar todas las recetas que pertenecen al menu y calcular los valores totales
 recetaSchema.statics.calcNutrientes = async function (menuId) {
   const stats = await Receta.aggregate([
     { $match: { menu: menuId } },
@@ -135,24 +136,57 @@ recetaSchema.statics.calcNutrientes = async function (menuId) {
     },
   ]);
 
-  await Menu.findByIdAndUpdate(menuId, {
-    cantidadRecetas: stats[0].cantidadRecetas,
-    analisisNutricional: {
-      Kcal: stats[0].totalKcals,
-      prot: stats[0].totalProts,
-      carbs: stats[0].totalCarbs,
-      azucares: stats[0].totalAzucares,
-      grasas: stats[0].totalGrasas,
-      saturadas: stats[0].totalSaturadas,
-      alergias: stats[0].alergias,
-      avisos: stats[0].avisos,
-    },
-  });
+  // Guardar los cambios en el menu correspondiente
+  if (stats.length > 0) {
+    await Menu.findByIdAndUpdate(menuId, {
+      cantidadRecetas: stats[0].cantidadRecetas,
+      analisisNutricional: {
+        Kcal: stats[0].totalKcals,
+        prot: stats[0].totalProts,
+        carbs: stats[0].totalCarbs,
+        azucares: stats[0].totalAzucares,
+        grasas: stats[0].totalGrasas,
+        saturadas: stats[0].totalSaturadas,
+        alergias: stats[0].alergias,
+        avisos: stats[0].avisos,
+      },
+    });
+  } else {
+    // Si se elimina la última receta del menu, resetear los campos al default
+    await Menu.findByIdAndUpdate(menuId, {
+      cantidadRecetas: 0,
+      analisisNutricional: {
+        Kcal: 0,
+        prot: 0,
+        carbs: 0,
+        azucares: 0,
+        grasas: 0,
+        saturadas: 0,
+        alergias: 0,
+        avisos: 0,
+      },
+    });
+  }
 };
 
+//                             Actualizar datos nutricionales del menu al guardar un receta nueva
+// Arrancar el recalculo al guardar una receta nueva
 recetaSchema.post("save", function () {
   this.constructor.calcNutrientes(this.menu);
 });
+
+//                               Actualizar datos nutricionales del menu al modificar un receta
+// Esto tiene truco. findAnd... da acceso al Query Middleware. De modo que no tenemos acceso directo al documento y sus valores
+// Concretamente necesitamos acceso al ID del menu al cual pertenece la receta
+recetaSchema.pre(/^findOneAnd/, async function (next) {
+  this.receta = await this.findOne();
+  next();
+});
+
+recetaSchema.post(/^findOneAnd/, async function () {
+  await this.receta.constructor.calcNutrientes(this.receta.menu);
+});
+//-----------------------------------------------------------------------------------------------------------------------------
 
 const Receta = mongoose.model("Receta", recetaSchema);
 

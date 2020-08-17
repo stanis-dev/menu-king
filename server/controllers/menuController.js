@@ -15,3 +15,12 @@ exports.createMenu = catchAsync(async (req, res, next) => {
     data: menuCreated,
   });
 });
+
+exports.getMenus = catchAsync(async (req, res, next) => {
+  const menus = await Menu.find({ user: req.user._id });
+
+  res.status(200).json({
+    status: "success",
+    data: menus,
+  });
+});

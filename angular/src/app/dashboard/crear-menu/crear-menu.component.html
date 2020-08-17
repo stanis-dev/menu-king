@@ -1,8 +1,12 @@
 <div class="popup">
   <h2>Crear menu</h2>
-  <form [formGroup]="menuForm">
-    <input type="text" placeholder="El nombre de tu menu" />
-    <input type="number" placeholder="Comensales" />
+  <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+    <input
+      type="text"
+      placeholder="El nombre de tu menu"
+      formControlName="menuName"
+    />
+    <input type="number" placeholder="Comensales" formControlName="pax" />
     <div class="botones">
       <button>Guardar</button>
       <button>Cancelar</button>

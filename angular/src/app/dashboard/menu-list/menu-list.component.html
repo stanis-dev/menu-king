@@ -1,5 +1,4 @@
-<a class="menu-option"><p class="menu-text">Menu vegetariano, cena de navidad</p> ➤</a>
-<a class="menu-option active"><p class="menu-text">Menu para amantes del picante</p>➤</a>
-<a class="menu-option"><p class="menu-text">Menu del día, semana 1-7 septiembre</p>➤</a>
-<a class="menu-option"><p class="menu-text">Experimental, para la reunion familiar</p>➤</a>
-<a class="menu-option"><p class="menu-text">Menu especial, fines de semana, septiembre</p>➤</a>
+<a class="menu-option" *ngFor="let menu of menusUsuario"
+  ><p class="menu-text">{{ menu.menuName }}</p>
+  ➤</a
+>

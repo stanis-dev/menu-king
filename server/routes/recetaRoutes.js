@@ -8,7 +8,6 @@ const { authenticateUser } = require("../controllers/authController");
 
 router.use(authenticateUser);
 
-router.get("/recetaStats", getRecetasStats);
 router.route("/").post(addReceta).get(getRecetas);
 
 module.exports = router;

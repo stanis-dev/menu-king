@@ -1,6 +1,9 @@
 <div class="dashboard">
   <div class="bg" *ngIf="modoCrearMenu">
-    <app-crear-menu #popupMenu></app-crear-menu>
+    <app-crear-menu
+      #popupMenu
+      (menuHasBeenModified)="onMenuModified($event)"
+    ></app-crear-menu>
   </div>
   <div class="resumen">
     <div class="resumen-upper">
@@ -10,7 +13,7 @@
           Crear Menu
         </button>
       </div>
-      <app-menu-list></app-menu-list>
+      <app-menu-list [menusUsuario]="menusUsuario"></app-menu-list>
     </div>
     <app-datos-nutricionales></app-datos-nutricionales>
   </div>

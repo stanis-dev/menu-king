@@ -5,9 +5,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { RecetasService } from '../recetas/recetas.service';
 import { Subscription } from 'rxjs';
 import { UtilsService } from '../shared/utils.service';
+import { Menu, MenuService } from './menu.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,9 +15,9 @@ import { UtilsService } from '../shared/utils.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  recetasUsusarioSub: Subscription;
+  menusUsusarioSub: Subscription;
   clickSub: Subscription;
-  recetas: [];
+  menusUsuario: [Menu];
   modoCrearMenu = false;
   private popupMenu: ElementRef;
   @ViewChild('popupMenu', { read: ElementRef, static: false })
@@ -28,29 +28,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private recetasService: RecetasService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
-    this.recetasUsusarioSub = this.recetasService
-      .getRecetas()
-      .subscribe((recetas) => {
-        console.log(recetas);
-      });
+    this.menusUsusarioSub = this.menuService.getMenus().subscribe((menus) => {
+      this.menusUsuario = menus.data;
+      console.log(this.menusUsuario);
+    });
   }
 
   onCreateMenu(): void {
-    console.log('executed');
-    console.log('before: ' + this.modoCrearMenu);
     this.modoCrearMenu = true;
-    console.log('after: ' + this.modoCrearMenu);
 
     this.clickSub = this.utilsService.documentClickedTarget.subscribe(
       (target) => {
         this.closePopupOnClickOutside(target);
       }
     );
+  }
+
+  onMenuModified(menuEmmitted: Menu): void {
+    console.log(menuEmmitted);
+    this.menusUsuario.push(menuEmmitted);
+    this.modoCrearMenu = false;
   }
 
   closePopupOnClickOutside(target: any): void {
@@ -67,6 +69,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.recetasUsusarioSub.unsubscribe();
+    this.menusUsusarioSub.unsubscribe();
   }
 }
