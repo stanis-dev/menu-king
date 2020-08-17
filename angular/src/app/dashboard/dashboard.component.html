@@ -13,7 +13,11 @@
           Crear Menu
         </button>
       </div>
+      <p class="arrow-menus top" *ngIf="menusUsuario.length >= 6">&#10096;</p>
       <app-menu-list [menusUsuario]="menusUsuario"></app-menu-list>
+      <p class="arrow-menus bottom" *ngIf="menusUsuario.length >= 6">
+        &#10096;
+      </p>
     </div>
     <app-datos-nutricionales></app-datos-nutricionales>
   </div>

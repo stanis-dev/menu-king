@@ -57,14 +57,31 @@
         width: 40%;
       }
     }
-  }
 
-  app-recetas-lista {
-    overflow-y: auto;
-    -ms-overflow-style: none; /* IE y Edge */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none;
+    .arrow-menus {
+      text-align: center;
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+      margin: 0 auto;
+
+      &.bottom {
+        transform: rotate(-90deg);
+      }
+
+      &.top {
+        transform: rotate(90deg);
+        margin-top: 5px;
+      }
     }
+  }
+}
+
+app-recetas-lista,
+app-menu-list {
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
   }
 }

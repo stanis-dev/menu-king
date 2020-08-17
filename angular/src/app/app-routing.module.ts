@@ -10,7 +10,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    pathMatch: 'full',
+    redirectTo: '/menus',
     canActivate: [AuthGuard],
   },
   {
@@ -34,9 +35,15 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'dashboard',
+    path: 'menus',
     component: DashboardComponent,
     canActivate: [AuthGuard],
+    children: [
+      { path: '', component: DashboardComponent, pathMatch: 'full' },
+      { path: 'new', component: RecetasComponent },
+      { path: ':id', component: RecetasComponent },
+      { path: ':id/edit', component: RecetasComponent },
+    ],
   },
 ];
 

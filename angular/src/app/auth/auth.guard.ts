@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     this.authService.user.subscribe((user) => {
       console.log('user is: ' + user);
       if (user && state.url === '/auth') {
-        this.router.navigate(['recetas']);
+        this.router.navigate(['menus']);
         this.isLoggedIn = false;
       } else if (user && state.url !== '/auth') {
         this.isLoggedIn = true;

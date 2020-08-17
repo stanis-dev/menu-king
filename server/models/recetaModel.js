@@ -71,6 +71,12 @@ const recetaSchema = new mongoose.Schema({
     etiquetasSalud: [String],
     alergias: [String],
     avisos: [String],
+    comida: {
+      type: String,
+      required: [true, "La receta debe pertenecer a una comida"],
+      enum: ["entrante", "principal", "postre"],
+      default: "principal",
+    },
   },
 });
 
