@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Menu = require("./menuModel");
 
 const recetaSchema = new mongoose.Schema({
   recetaNombre: {
@@ -73,16 +74,85 @@ const recetaSchema = new mongoose.Schema({
   },
 });
 
-/*recetaSchema.statics.calcNutrientes = function (menu) {
-  this.aggregate([
+recetaSchema.statics.calcNutrientes = async function (menuId) {
+  const stats = await Receta.aggregate([
+    { $match: { menu: menuId } },
     {
-      $match: { menu },
+      $group: {
+        _id: null,
+        cantidadRecetas: { $sum: 1 },
+        totalKcals: {
+          $sum: "$analisisNutricional.caloriasTotal",
+        },
+        totalProts: { $sum: "$analisisNutricional.prot" },
+        totalCarbs: { $sum: "$analisisNutricional.carbs" },
+        totalAzucares: { $sum: "$analisisNutricional.azucares" },
+        totalGrasas: { $sum: "$analisisNutricional.grasas" },
+        totalSaturadas: { $sum: "$analisisNutricional.saturadas" },
+        etiquetasSalud: {
+          $addToSet: "$analisisNutricional.etiquetasSalud",
+        },
+        alergias: {
+          $addToSet: "$analisisNutricional.alergias",
+        },
+        avisos: {
+          $addToSet: "$analisisNutricional.avisos",
+        },
+      },
     },
-    ($group: {
-      _id: null,
-    }),
+    {
+      $project: {
+        _id: 0,
+        cantidadRecetas: 1,
+        totalKcals: 1,
+        totalProts: 1,
+        totalCarbs: 1,
+        totalAzucares: 1,
+        totalGrasas: 1,
+        totalSaturadas: 1,
+        etiquetasSalud: {
+          $reduce: {
+            input: "$etiquetasSalud",
+            initialValue: [],
+            in: { $setUnion: ["$$value", "$$this"] },
+          },
+        },
+        alergias: {
+          $reduce: {
+            input: "$alergias",
+            initialValue: [],
+            in: { $setUnion: ["$$value", "$$this"] },
+          },
+        },
+        avisos: {
+          $reduce: {
+            input: "$avisos",
+            initialValue: [],
+            in: { $setUnion: ["$$value", "$$this"] },
+          },
+        },
+      },
+    },
   ]);
-};*/
+
+  await Menu.findByIdAndUpdate(menuId, {
+    cantidadRecetas: stats[0].cantidadRecetas,
+    analisisNutricional: {
+      Kcal: stats[0].totalKcals,
+      prot: stats[0].totalProts,
+      carbs: stats[0].totalCarbs,
+      azucares: stats[0].totalAzucares,
+      grasas: stats[0].totalGrasas,
+      saturadas: stats[0].totalSaturadas,
+      alergias: stats[0].alergias,
+      avisos: stats[0].avisos,
+    },
+  });
+};
+
+recetaSchema.post("save", function () {
+  this.constructor.calcNutrientes(this.menu);
+});
 
 const Receta = mongoose.model("Receta", recetaSchema);
 

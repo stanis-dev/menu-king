@@ -26,32 +26,3 @@ exports.getRecetas = catchAsync(async (req, res, next) => {
     data,
   });
 });
-
-exports.getRecetasStats = async (req, res, next) => {
-  try {
-    const stats = await Receta.aggregate([
-      { $match: { user: req.user._id } },
-      {
-        $group: {
-          _id: null,
-          totalKcals: { $sum: "$analisisNutricional.caloriasTotal" },
-          totalProts: { $sum: "$analisisNutricional.prot" },
-          totalCarbs: { $sum: "$analisisNutricional.carbs" },
-          totalAzucares: { $sum: "$analisisNutricional.azucares" },
-          totalGrasas: { $sum: "$analisisNutricional.grasas" },
-          totalSaturadas: { $sum: "$analisisNutricional.saturadas" },
-        },
-      },
-    ]);
-    res.status(200).json({
-      status: "success",
-      data: stats,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: "fail",
-      err,
-    });
-  }
-};

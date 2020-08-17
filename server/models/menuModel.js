@@ -13,12 +13,10 @@ const menuSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Indique el numero de comensales"],
   },
-  recetas: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Receta",
-    },
-  ],
+  cantidadRecetas: {
+    type: Number,
+    default: 0,
+  },
   analisisNutricional: {
     Kcal: {
       type: Number,
@@ -44,7 +42,13 @@ const menuSchema = new mongoose.Schema({
       type: Number,
       default: 0,
     },
-    observaciones: {
+    etiquetasSalud: {
+      type: [String],
+    },
+    alergias: {
+      type: [String],
+    },
+    avisos: {
       type: [String],
     },
   },

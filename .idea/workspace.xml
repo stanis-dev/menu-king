@@ -24,9 +24,9 @@
   <component name="ChangeListManager">
     <list default="true" id="72345de3-9f0b-46f2-bb0f-0e357d84e20f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/recetas/recetas.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/recetas/recetas.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/controllers/recetaControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/recetaControllers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/recetaRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/recetaRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/menuModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/menuModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models/recetaModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/models/recetaModel.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +102,7 @@
       <workItem from="1597523021886" duration="6135000" />
       <workItem from="1597567636949" duration="4000" />
       <workItem from="1597567656039" duration="10000" />
-      <workItem from="1597567684841" duration="29427000" />
+      <workItem from="1597567684841" duration="40105000" />
     </task>
     <servers />
   </component>
