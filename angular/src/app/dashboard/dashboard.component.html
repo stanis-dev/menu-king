@@ -1,25 +1,44 @@
 <div class="dashboard">
-  <div class="bg" *ngIf="modoCrearMenu">
+  <div
+    class="bg"
+    *ngIf="modoModificarMenu === 'crear' || modoModificarMenu === 'editar'"
+  >
     <app-crear-menu
       #popupMenu
       (menuHasBeenModified)="onMenuModified($event)"
+      [mode]="modoModificarMenu"
     ></app-crear-menu>
   </div>
   <div class="resumen">
     <div class="resumen-upper">
       <div class="menu-title">
         <h3>Tus menus:</h3>
-        <button type="button" class="createMenuButton" (click)="onCreateMenu()">
+        <button
+          type="button"
+          class="createMenuButton"
+          (click)="onCreateMenu('crear')"
+        >
           Crear Menu
         </button>
       </div>
-      <p class="arrow-menus top" *ngIf="menusUsuario.length >= 6">&#10096;</p>
-      <app-menu-list [menusUsuario]="menusUsuario"></app-menu-list>
-      <p class="arrow-menus bottom" *ngIf="menusUsuario.length >= 6">
+      <p
+        class="arrow-menus top"
+        *ngIf="menusUsuario && menusUsuario.length >= 6"
+      >
+        &#10096;
+      </p>
+      <app-menu-list
+        [menusUsuario]="menusUsuario"
+        (editMenuClicked)="onCreateMenu('editar')"
+      ></app-menu-list>
+      <p
+        class="arrow-menus bottom"
+        *ngIf="menusUsuario && menusUsuario.length >= 6"
+      >
         &#10096;
       </p>
     </div>
     <app-datos-nutricionales></app-datos-nutricionales>
   </div>
-  <app-recetas-lista></app-recetas-lista>
+  <router-outlet></router-outlet>
 </div>

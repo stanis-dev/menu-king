@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Menu, MenuService } from '../menu.service';
 import { HttpResponse } from '@angular/common/http';
@@ -9,8 +9,8 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./crear-menu.component.scss'],
 })
 export class CrearMenuComponent {
-  @Output()
-  menuHasBeenModified: EventEmitter<Menu> = new EventEmitter<Menu>();
+  @Output() menuHasBeenModified: EventEmitter<Menu> = new EventEmitter<Menu>();
+  @Input() mode: string;
 
   menuForm: FormGroup = this.fb.group({
     menuName: ['', Validators.required],

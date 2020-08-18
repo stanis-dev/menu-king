@@ -18,7 +18,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   menusUsusarioSub: Subscription;
   clickSub: Subscription;
   menusUsuario: [Menu];
-  modoCrearMenu = false;
+  menuActivo;
+  modoModificarMenu: string;
+
   private popupMenu: ElementRef;
   @ViewChild('popupMenu', { read: ElementRef, static: false })
   set menuPopup(menuPopup: ElementRef) {
@@ -35,12 +37,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.menusUsusarioSub = this.menuService.getMenus().subscribe((menus) => {
       this.menusUsuario = menus.data;
+      this.menuActivo = menus.data[0];
       console.log(this.menusUsuario);
     });
   }
 
-  onCreateMenu(): void {
-    this.modoCrearMenu = true;
+  onCreateMenu(mode: string): void {
+    this.modoModificarMenu = mode;
 
     this.clickSub = this.utilsService.documentClickedTarget.subscribe(
       (target) => {
@@ -50,20 +53,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onMenuModified(menuEmmitted: Menu): void {
-    console.log(menuEmmitted);
     this.menusUsuario.push(menuEmmitted);
-    this.modoCrearMenu = false;
+    this.modoModificarMenu = undefined;
   }
 
   closePopupOnClickOutside(target: any): void {
     if (
       this.popupMenu.nativeElement.contains(target) ||
-      target.classList.contains('createMenuButton')
+      target.classList.contains('createMenuButton') ||
+      target.classList.contains('edit-icon-svg')
     ) {
       return;
     } else {
-      console.log('clicked');
-      this.modoCrearMenu = false;
+      console.log('a closing link detected');
+      this.modoModificarMenu = undefined;
       this.clickSub.unsubscribe();
     }
   }

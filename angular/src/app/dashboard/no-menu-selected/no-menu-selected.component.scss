@@ -1,0 +1,16 @@
+.right-side {
+  width: 100%;
+  height: 100%;
+  max-width: 490px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h4 {
+    justify-self: center;
+    max-width: 400px;
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+}

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Menu } from '../menu.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -6,5 +7,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./menu-list.component.scss'],
 })
 export class MenuListComponent {
-  @Input() menusUsuario: [];
+  @Input() menusUsuario: [Menu];
+  @Output() editMenuClicked: EventEmitter<Menu> = new EventEmitter<Menu>();
+
+  onEditMenu(i: number): void {
+    console.log('clicked!');
+    this.editMenuClicked.emit(this.menusUsuario[i]);
+  }
 }

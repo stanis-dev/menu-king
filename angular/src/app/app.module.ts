@@ -21,6 +21,7 @@ import { DatosNutricionalesComponent } from './dashboard/datos-nutricionales/dat
 import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
 import { CrearMenuComponent } from './dashboard/crear-menu/crear-menu.component';
 import { ClosePopupDirective } from './shared/closePopup.directive';
+import { NoMenuSelectedComponent } from './dashboard/no-menu-selected/no-menu-selected.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ClosePopupDirective } from './shared/closePopup.directive';
     DatosNutricionalesComponent,
     RecetasListaComponent,
     CrearMenuComponent,
+    NoMenuSelectedComponent,
     ClosePopupDirective,
   ],
   imports: [

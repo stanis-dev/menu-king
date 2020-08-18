@@ -18,9 +18,7 @@ export class AuthService {
 
   /*
   Crear y emitir usuario nuevo,
-  redirigir a 'recetas'
-
-  TODO: redirigir a dashboard una vez esté implimentado
+  redirigir a 'dashboard'
   */
   handleAuth(resData): void {
     const newUser = new User(
@@ -32,7 +30,7 @@ export class AuthService {
 
     this.isLoading.next(false);
     this.user.next(newUser.username);
-    this.router.navigate(['recetas']);
+    this.router.navigate(['']);
   }
 
   async handleError(error): Promise<void> {

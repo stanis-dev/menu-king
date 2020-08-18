@@ -2,10 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
 
-/* 
-  TODO: 
-*/
-
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
