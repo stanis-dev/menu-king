@@ -3,21 +3,17 @@
     class="bg"
     *ngIf="modoModificarMenu === 'crear' || modoModificarMenu === 'editar'"
   >
-    <app-crear-menu
+    <app-modificar-menu
       #popupMenu
       (menuHasBeenModified)="onMenuModified($event)"
-      [mode]="modoModificarMenu"
-    ></app-crear-menu>
+      [menuToEdit]="menuToEdit"
+    ></app-modificar-menu>
   </div>
   <div class="resumen">
     <div class="resumen-upper">
       <div class="menu-title">
         <h3>Tus menus:</h3>
-        <button
-          type="button"
-          class="createMenuButton"
-          (click)="onCreateMenu('crear')"
-        >
+        <button type="button" class="createMenuButton" (click)="onCreateMenu()">
           Crear Menu
         </button>
       </div>
@@ -29,7 +25,7 @@
       </p>
       <app-menu-list
         [menusUsuario]="menusUsuario"
-        (editMenuClicked)="onCreateMenu('editar')"
+        (editMenuClicked)="onCreateMenu($event)"
       ></app-menu-list>
       <p
         class="arrow-menus bottom"

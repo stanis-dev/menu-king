@@ -19,7 +19,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { MenuListComponent } from './dashboard/menu-list/menu-list.component';
 import { DatosNutricionalesComponent } from './dashboard/datos-nutricionales/datos-nutricionales.component';
 import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
-import { CrearMenuComponent } from './dashboard/crear-menu/crear-menu.component';
+import { ModificarMenuComponent } from './dashboard/crear-menu/modificar-menu.component';
 import { ClosePopupDirective } from './shared/closePopup.directive';
 import { NoMenuSelectedComponent } from './dashboard/no-menu-selected/no-menu-selected.component';
 
@@ -37,7 +37,7 @@ import { NoMenuSelectedComponent } from './dashboard/no-menu-selected/no-menu-se
     MenuListComponent,
     DatosNutricionalesComponent,
     RecetasListaComponent,
-    CrearMenuComponent,
+    ModificarMenuComponent,
     NoMenuSelectedComponent,
     ClosePopupDirective,
   ],

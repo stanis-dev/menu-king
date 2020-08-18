@@ -1,5 +1,5 @@
 <div class="popup">
-  <h2>{{ mode === "editar" ? "Editar" : "Crear" }} menu</h2>
+  <h2>{{ menuToEdit ? "Editar" : "Crear" }} menu</h2>
   <form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
     <input
       type="text"

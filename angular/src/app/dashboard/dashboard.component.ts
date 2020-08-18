@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   clickSub: Subscription;
   menusUsuario: [Menu];
   menuActivo;
+  menuToEdit: Menu;
   modoModificarMenu: string;
 
   private popupMenu: ElementRef;
@@ -42,8 +43,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  onCreateMenu(mode: string): void {
-    this.modoModificarMenu = mode;
+  onCreateMenu(event?: Menu): void {
+    if (event) {
+      this.menuToEdit = event;
+      this.modoModificarMenu = 'editar';
+      console.log(event);
+    } else {
+      this.menuToEdit = null;
+      this.modoModificarMenu = 'crear';
+    }
 
     this.clickSub = this.utilsService.documentClickedTarget.subscribe(
       (target) => {
