@@ -8,8 +8,8 @@
     />
     <input type="number" placeholder="Comensales" formControlName="pax" />
     <div class="botones">
-      <button>Guardar</button>
-      <button>Cancelar</button>
+      <button class="guardar" [disabled]="!menuForm.valid">Guardar</button>
+      <button class="eliminar">Eliminar</button>
     </div>
   </form>
 </div>

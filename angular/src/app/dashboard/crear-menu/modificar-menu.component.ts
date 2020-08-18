@@ -20,7 +20,7 @@ export class ModificarMenuComponent implements OnInit, OnDestroy {
 
   menuForm: FormGroup = this.fb.group({
     menuName: ['', Validators.required],
-    pax: [0, [Validators.required]],
+    pax: [0, [Validators.required, Validators.min(1)]],
   });
 
   onSubmit(): void {
