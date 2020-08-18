@@ -6,7 +6,6 @@ exports.addReceta = catchAsync(async (req, res, next) => {
   const receta = {
     ...req.body,
     user: req.user._id,
-    menu: "5f39910861464a35b4c6613a",
   };
   console.log(receta);
   // Enviar a base de datos

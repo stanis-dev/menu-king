@@ -31,12 +31,19 @@ exports.deleteMenu = catchAsync(async (req, res, next) => {
   const menuId = req.params.id;
 
   if (!menuId) {
-    return next(new AppError("No se encuentra el id del menu"));
+    return next(new AppError("No se encuentra el id del menu", 400));
   }
 
-  await Menu.findByIdAndDelete(menuId, async () => {
-    await Receta.deleteMany({ menu: menuId });
-  });
+  const menuToDelete = await Menu.findById(menuId);
+  if (!menuToDelete) {
+    return next(new AppError("El menu solicitado no existe", 400));
+  }
+  if (menuToDelete.user.toString() !== req.user._id.toString()) {
+    return next(new AppError("Este menu no pertenece al usuario actual", 401));
+  }
+
+  await menuToDelete.delete();
+  await Receta.deleteMany({ menu: menuId });
 
   res.status(204).json({
     status: "success",
