@@ -8,8 +8,12 @@
     />
     <input type="number" placeholder="Comensales" formControlName="pax" />
     <div class="botones">
-      <button class="guardar" [disabled]="!menuForm.valid">Guardar</button>
-      <button class="eliminar">Eliminar</button>
+      <button class="guardar" [disabled]="!menuForm.valid">
+        {{ this.menuToEdit ? "Editar" : "Crear" }}
+      </button>
+      <button class="eliminar" type="button" (click)="onDeleteMenu()">
+        Eliminar
+      </button>
     </div>
   </form>
 </div>

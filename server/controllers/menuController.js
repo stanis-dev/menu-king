@@ -3,6 +3,25 @@ const Receta = require("../models/recetaModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
+exports.checkMenuIdParam = async (req, res, next, menu) => {
+  const menuId = req.params.menu;
+
+  if (!menuId) {
+    return next(new AppError("No se encuentra el id del menu", 400));
+  }
+
+  const menuToOperate = await Menu.findById(menuId);
+  if (!menuToOperate) {
+    return next(new AppError("El menu solicitado no existe", 400));
+  }
+  if (menuToOperate.user.toString() !== req.user._id.toString()) {
+    return next(new AppError("Este menu no pertenece al usuario actual", 401));
+  }
+
+  req.menuId = menuId;
+  next();
+};
+
 exports.createMenu = catchAsync(async (req, res, next) => {
   const newMenu = {
     menuName: req.body.menuName,
@@ -28,24 +47,21 @@ exports.getMenus = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMenu = catchAsync(async (req, res, next) => {
-  const menuId = req.params.id;
-
-  if (!menuId) {
-    return next(new AppError("No se encuentra el id del menu", 400));
-  }
-
-  const menuToDelete = await Menu.findById(menuId);
-  if (!menuToDelete) {
-    return next(new AppError("El menu solicitado no existe", 400));
-  }
-  if (menuToDelete.user.toString() !== req.user._id.toString()) {
-    return next(new AppError("Este menu no pertenece al usuario actual", 401));
-  }
-
-  await menuToDelete.delete();
-  await Receta.deleteMany({ menu: menuId });
+  await Menu.findByIdAndDelete(req.menuId);
+  await Receta.deleteMany({ menu: req.menuId });
 
   res.status(204).json({
     status: "success",
+  });
+});
+
+exports.patchMenu = catchAsync(async (req, res, next) => {
+  const menuPatched = await Menu.findByIdAndUpdate(req.menuId, req.body, {
+    new: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: menuPatched,
   });
 });

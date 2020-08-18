@@ -15,12 +15,11 @@ import { Menu, MenuService } from './menu.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  menusUsusarioSub: Subscription;
+  menusUsuarioSub: Subscription;
   clickSub: Subscription;
   menusUsuario: [Menu];
-  menuActivo;
   menuToEdit: Menu;
-  modoModificarMenu: string;
+  modoModificarMenu = false;
 
   private popupMenu: ElementRef;
   @ViewChild('popupMenu', { read: ElementRef, static: false })
@@ -36,22 +35,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.menusUsusarioSub = this.menuService.getMenus().subscribe((menus) => {
-      this.menusUsuario = menus.data;
-      this.menuActivo = menus.data[0];
-      console.log(this.menusUsuario);
+    this.menuService.getMenus();
+
+    this.menuService.menuToEdit.subscribe((menutoEdit) => {
+      if (menutoEdit) {
+        this.menuToEdit = menutoEdit;
+        this.onModifyMenu();
+      }
     });
+
+    this.menusUsuarioSub = this.menuService.userMenus.subscribe(
+      (menus: [Menu]) => {
+        this.menusUsuario = menus;
+      }
+    );
   }
 
-  onCreateMenu(event?: Menu): void {
-    if (event) {
-      this.menuToEdit = event;
-      this.modoModificarMenu = 'editar';
-      console.log(event);
-    } else {
-      this.menuToEdit = null;
-      this.modoModificarMenu = 'crear';
-    }
+  onModifyMenu(): void {
+    this.modoModificarMenu = true;
 
     this.clickSub = this.utilsService.documentClickedTarget.subscribe(
       (target) => {
@@ -60,9 +61,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     );
   }
 
-  onMenuModified(menuEmmitted: Menu): void {
-    this.menusUsuario.push(menuEmmitted);
-    this.modoModificarMenu = undefined;
+  onMenuModified(): void {
+    this.modoModificarMenu = false;
   }
 
   closePopupOnClickOutside(target: any): void {
@@ -74,12 +74,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return;
     } else {
       console.log('a closing link detected');
-      this.modoModificarMenu = undefined;
+      this.modoModificarMenu = false;
+      this.menuService.menuToEdit.next(null);
       this.clickSub.unsubscribe();
     }
   }
 
   ngOnDestroy(): void {
-    this.menusUsusarioSub.unsubscribe();
+    this.menusUsuarioSub.unsubscribe();
   }
 }

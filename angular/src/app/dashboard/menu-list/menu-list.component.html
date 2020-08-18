@@ -51,7 +51,8 @@
         <g></g>
       </svg>
     </a>
-    <p class="menu-text">{{ menu.menuName }}</p>
-    <span>➤</span>
+
+    <p class="menu-text" (click)="onItemSelect(i)">{{ menu.menuName }}</p>
+    <span (click)="onItemSelect(i)">➤</span>
   </div>
 </div>

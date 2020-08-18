@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 export interface Menu {
   analisisNutricional: {
@@ -24,13 +25,49 @@ export interface Menu {
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
+  userMenus: Subject<[Menu]> = new Subject<[Menu]>();
+  menuToEdit: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(null);
+  menuSelected: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(null);
+
   constructor(private http: HttpClient) {}
 
-  saveMenu(menu): Observable<any> {
-    return this.http.post('./api/v1/menu', menu);
+  saveMenu(menu): void {
+    this.http
+      .post('./api/v1/menu', menu)
+      .pipe(
+        map<any, any>((response) => {
+          return response.data;
+        }),
+        tap((menu) => {
+          this.getMenus();
+        })
+      )
+      .subscribe();
   }
 
-  getMenus(): Observable<any> {
-    return this.http.get('/api/v1/menu');
+  getMenus(): void {
+    this.http
+      .get('/api/v1/menu')
+      .pipe(
+        tap<any>((response) => {
+          this.userMenus.next(response.data);
+        })
+      )
+      .subscribe();
+  }
+
+  patchMenu(menuId: string, patchValues: any): Observable<any> {
+    return this.http.patch(`/api/v1/menu/${menuId}`, patchValues);
+  }
+
+  deleteMenu(menuId: string): void {
+    this.http
+      .delete(`/api/v1/menu/${menuId}`)
+      .pipe(
+        tap(() => {
+          this.getMenus();
+        })
+      )
+      .subscribe();
   }
 }
