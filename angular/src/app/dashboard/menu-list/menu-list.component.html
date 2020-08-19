@@ -2,7 +2,7 @@
   <div
     class="menu-option"
     *ngFor="let menu of menusUsuario; let i = index"
-    [routerLink]="[i]"
+    [routerLink]="'/menus/' + i"
     routerLinkActive="active"
   >
     <a (click)="onEditMenu(i)" class="edit-icon edit-icon-svg">

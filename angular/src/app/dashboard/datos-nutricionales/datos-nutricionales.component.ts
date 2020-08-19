@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu, MenuService } from '../menu.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-datos-nutricionales',
@@ -10,10 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DatosNutricionalesComponent implements OnInit {
   menuSelected: Menu;
 
-  constructor(
-    private menuService: MenuService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
     this.menuService.menuSelected.subscribe((menu) => {

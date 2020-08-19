@@ -37,13 +37,9 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'menus',
+    path: 'menus/:menuId',
     component: DashboardComponent,
     canActivate: [AuthGuard],
-    children: [
-      { path: '', component: NoMenuSelectedComponent, pathMatch: 'full' },
-      { path: ':id', component: RecetasListaComponent },
-    ],
   },
 ];
 

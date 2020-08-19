@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 import { UtilsService } from '../shared/utils.service';
 import { Menu, MenuService } from './menu.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,7 +32,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private utilsService: UtilsService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.menusUsuarioSub = this.menuService.userMenus.subscribe(
       (menus: [Menu]) => {
         this.menusUsuario = menus;
+
+        this.route.paramMap.subscribe((params) => {
+          const menuId = params.get('menuId');
+
+          this.menuService.menuSelected.next(this.menusUsuario[menuId]);
+        });
       }
     );
   }

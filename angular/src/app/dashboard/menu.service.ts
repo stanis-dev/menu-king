@@ -27,7 +27,7 @@ export interface Menu {
 export class MenuService {
   userMenus: Subject<[Menu]> = new Subject<[Menu]>();
   menuToEdit: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(null);
-  menuSelected: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(null);
+  menuSelected: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(undefined);
 
   constructor(private http: HttpClient) {}
 
