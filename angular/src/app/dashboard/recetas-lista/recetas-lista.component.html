@@ -11,31 +11,12 @@
       /></a>
     </div>
     <ul>
-      <li>
+      <li *ngFor="let entrante of entrantes">
         <div>
           <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
           <p>
-            Corte fino de jamón ibérico con tomates cherry Corte fino de jamón
-            ibérico con tomates cherry
+            {{ entrante.recetaNombre }}
           </p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Ensalada con aguacate y frutos secos</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Ensalada con aguacate y frutos secos</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Corte fino de jamón ibérico con tomates cherry</p>
         </div>
       </li>
     </ul>
@@ -52,28 +33,10 @@
       /></a>
     </div>
     <ul>
-      <li>
+      <li *ngFor="let principal of principales">
         <div>
           <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Corte fino de jamón ibérico con tomates cherry</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Ensalada con aguacate y frutos secos</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Corte fino de jamón ibérico con tomates cherry</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Ensalada con aguacate y frutos secos</p>
+          <p>{{ principal.recetaNombre }}</p>
         </div>
       </li>
     </ul>
@@ -90,16 +53,10 @@
       /></a>
     </div>
     <ul>
-      <li>
+      <li *ngFor="let postre of postres">
         <div>
           <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Corte fino de jamón ibérico con tomates cherry</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>Ensalada con aguacate y frutos secos</p>
+          <p>{{ postre.recetaNombre }}</p>
         </div>
       </li>
     </ul>

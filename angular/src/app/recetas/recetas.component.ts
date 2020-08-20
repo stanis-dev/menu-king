@@ -34,6 +34,8 @@ export class RecetasComponent implements OnInit, OnDestroy {
     const recetaAnalizada = {
       ...this.recetaForm.value,
       analisisNutricional: { ...this.analisys },
+      menu: '5f3ead5819b0aa3a0800b6e2',
+      plato: 'postre',
     };
 
     this.recetaSub = this.recetasService

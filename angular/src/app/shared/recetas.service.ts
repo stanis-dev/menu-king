@@ -139,8 +139,17 @@ export class RecetasService {
       .get(`/api/v1/menu/${menuId}/recetas`)
       .pipe(
         tap<any>((response) => {
-          this.recetasMenu.next(response.data);
-          console.log(response.data);
+          const recetasOrganizado = {
+            entrante: [],
+            principal: [],
+            postre: [],
+          };
+
+          response.data.map((receta) => {
+            recetasOrganizado[receta.comida].push(receta);
+          });
+
+          this.recetasMenu.next(recetasOrganizado);
         })
       )
       .subscribe();

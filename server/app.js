@@ -7,6 +7,7 @@ dotenv.config({ path: "./config.env" });
 
 const authRouter = require("./routes/authRoutes");
 const menuRouter = require("./routes/menuRoutes");
+const recetaRouter = require("./routes/recetaRoutes");
 
 const errorHandler = require("./utils/errorHandler");
 
@@ -23,6 +24,7 @@ app.use(cookieParser("secret"));
 
 app.use("/api/v1/users", authRouter);
 app.use("/api/v1/menu", menuRouter);
+app.use("/api/v1/receta", recetaRouter);
 
 app.use(errorHandler);
 

@@ -1,13 +1,16 @@
 const router = require("express").Router({ mergeParams: true });
 const {
   addReceta,
-  getRecetas,
   setRecetaIds,
+  getRecetasOfMenu,
 } = require("../controllers/recetaControllers");
 const { authenticateUser } = require("../controllers/authController");
 
 router.use(authenticateUser);
 
-router.route("/").post(setRecetaIds, addReceta).get(setRecetaIds, getRecetas);
+router
+  .route("/")
+  .post(setRecetaIds, addReceta)
+  .get(setRecetaIds, getRecetasOfMenu);
 
 module.exports = router;

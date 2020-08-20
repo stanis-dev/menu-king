@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { UtilsService } from '../shared/utils.service';
 import { Menu, MenuService } from '../shared/menu.service';
 import { ActivatedRoute } from '@angular/router';
+import { RecetasService } from '../shared/recetas.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private utilsService: UtilsService,
     private menuService: MenuService,
+    private recetasService: RecetasService,
     private route: ActivatedRoute
   ) {}
 
@@ -52,12 +54,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (menus: [Menu]) => {
         this.menusUsuario = menus;
 
+        // Iniciar suscripción sólo si existen params en la dir del navegador
         if (this.route.firstChild) {
           this.route.firstChild.paramMap.subscribe((params) => {
-            console.log(params);
+            // Seleccionar menu en función del param en la barra de navegación
             const menuId = params.get('menuId');
+            const menu = this.menusUsuario[menuId];
 
-            this.menuService.menuSelected.next(this.menusUsuario[menuId]);
+            // Emitir el menu seleccionado
+            this.menuService.menuSelected.next(menu);
+            // Esto carga la parte derecha (lista de recetas) para el menu seleccionado
+            this.recetasService.getMenuRecetas(menu._id);
           });
         }
       }
@@ -95,6 +102,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.menusUsuarioSub.unsubscribe();
-    this.menuToEditSub.unsubscribe();
+
+    // TODO: Por qué si lo saco del condicional me tira error?
+    if (this.menuToEditSub) {
+      this.menuToEditSub.unsubscribe();
+    }
   }
 }
