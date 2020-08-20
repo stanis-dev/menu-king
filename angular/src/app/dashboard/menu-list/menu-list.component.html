@@ -4,6 +4,7 @@
     *ngFor="let menu of menusUsuario; let i = index"
     [routerLink]="'/menus/' + i"
     routerLinkActive="active"
+    (click)="onItemSelect(i)"
   >
     <a (click)="onEditMenu(i)" class="edit-icon edit-icon-svg">
       <svg
@@ -52,7 +53,7 @@
       </svg>
     </a>
 
-    <p class="menu-text" (click)="onItemSelect(i)">{{ menu.menuName }}</p>
+    <p class="menu-text">{{ menu.menuName }}</p>
     <span (click)="onItemSelect(i)">➤</span>
   </div>
 </div>

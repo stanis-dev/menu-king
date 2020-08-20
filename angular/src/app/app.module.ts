@@ -21,7 +21,7 @@ import { DatosNutricionalesComponent } from './dashboard/datos-nutricionales/dat
 import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
 import { ModificarMenuComponent } from './dashboard/modificar-menu/modificar-menu.component';
 import { ClosePopupDirective } from './shared/closePopup.directive';
-import { NoMenuSelectedComponent } from './dashboard/no-menu-selected/no-menu-selected.component';
+import { NoMenuSelectedComponent } from './dashboard/recetas-lista/no-menu-selected/no-menu-selected.component';
 
 @NgModule({
   declarations: [

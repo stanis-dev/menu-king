@@ -1,4 +1,4 @@
-<div class="right-side">
+<div class="right-side" *ngIf="menuSelected; else noMenuSelected">
   <div class="entrante">
     <div class="course-title">
       <h3>Entrantes</h3>
@@ -105,3 +105,6 @@
     </ul>
   </div>
 </div>
+<ng-template #noMenuSelected>
+  <app-no-menu-selected></app-no-menu-selected>
+</ng-template>

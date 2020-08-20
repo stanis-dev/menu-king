@@ -7,8 +7,12 @@ const {
   checkMenuIdParam,
   patchMenu,
 } = require("../controllers/menuController");
+const recetaRouter = require("./recetaRoutes");
+
+router.use("/:menuId/recetas", recetaRouter);
 
 router.use(authenticateUser);
+
 router.param("menu", checkMenuIdParam);
 
 router.route("/").post(createMenu).get(getMenus);

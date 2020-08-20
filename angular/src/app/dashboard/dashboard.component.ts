@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UtilsService } from '../shared/utils.service';
-import { Menu, MenuService } from './menu.service';
+import { Menu, MenuService } from '../shared/menu.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,8 +18,10 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit, OnDestroy {
   menusUsuarioSub: Subscription;
   clickSub: Subscription;
+  menuToEditSub: Subscription;
   menusUsuario: [Menu];
   menuToEdit: Menu;
+
   modoModificarMenu = false;
 
   private popupMenu: ElementRef;
@@ -50,11 +52,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (menus: [Menu]) => {
         this.menusUsuario = menus;
 
-        this.route.paramMap.subscribe((params) => {
-          const menuId = params.get('menuId');
+        if (this.route.firstChild) {
+          this.route.firstChild.paramMap.subscribe((params) => {
+            console.log(params);
+            const menuId = params.get('menuId');
 
-          this.menuService.menuSelected.next(this.menusUsuario[menuId]);
-        });
+            this.menuService.menuSelected.next(this.menusUsuario[menuId]);
+          });
+        }
       }
     );
   }
@@ -90,5 +95,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.menusUsuarioSub.unsubscribe();
+    this.menuToEditSub.unsubscribe();
   }
 }

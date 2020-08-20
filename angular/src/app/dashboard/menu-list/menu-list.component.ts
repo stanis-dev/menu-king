@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Menu, MenuService } from '../menu.service';
+import { Menu, MenuService } from '../../shared/menu.service';
+import { RecetasService } from '../../shared/recetas.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -16,7 +17,12 @@ export class MenuListComponent {
 
   onItemSelect(i: number): void {
     this.menuService.menuSelected.next(this.menusUsuario[i]);
+    console.log(this.menusUsuario[i]._id);
+    this.recetasService.getMenuRecetas(this.menusUsuario[i]._id);
   }
 
-  constructor(private menuService: MenuService) {}
+  constructor(
+    private menuService: MenuService,
+    private recetasService: RecetasService
+  ) {}
 }

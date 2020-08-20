@@ -1,6 +1,13 @@
 const catchAsync = require("../utils/catchAsync");
 const Receta = require("../models/recetaModel");
 
+exports.setRecetaIds = (req, res, next) => {
+  if (!req.body.menuId) req.body.menuId = req.params.menuId;
+  if (!req.body.userId) req.body.userId = req.user._id;
+
+  next();
+};
+
 exports.addReceta = catchAsync(async (req, res, next) => {
   // Normalizar receta
   const receta = {

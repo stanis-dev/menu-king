@@ -25,11 +25,27 @@
     <list default="true" id="72345de3-9f0b-46f2-bb0f-0e357d84e20f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/datos-nutricionales/datos-nutricionales.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/datos-nutricionales/datos-nutricionales.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/menu-list/menu-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/menu-list/menu-list.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/menu.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/menu.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/menu-list/menu-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/menu-list/menu-list.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/menu.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/shared/menu.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/modificar-menu/modificar-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/modificar-menu/modificar-menu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/no-menu-selected/no-menu-selected.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/no-menu-selected/no-menu-selected.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/no-menu-selected/no-menu-selected.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/no-menu-selected/no-menu-selected.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/no-menu-selected/no-menu-selected.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/no-menu-selected/no-menu-selected.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/recetas/recetas.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/recetas/recetas.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/recetas/recetas.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/shared/recetas.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/shared/spinner/spinner.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/shared/spinner/spinner.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/shared/spinner/spinner.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/shared/spinner/spinner.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/recetaControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/recetaControllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/menuRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/menuRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/recetaRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/recetaRoutes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +104,8 @@
       <recent name="C:\Users\stani\Desktop\menu-king\angular\src\assets\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\stani\Desktop\menu-king\angular\src\app\shared" />
+      <recent name="C:\Users\stani\Desktop\menu-king\angular\src\app\dashboard\recetas-lista" />
       <recent name="C:\Users\stani\Desktop\menu-king\angular\src\assets\img" />
     </key>
   </component>
@@ -108,7 +126,7 @@
       <workItem from="1597523021886" duration="6135000" />
       <workItem from="1597567636949" duration="4000" />
       <workItem from="1597567656039" duration="10000" />
-      <workItem from="1597567684841" duration="90353000" />
+      <workItem from="1597567684841" duration="104044000" />
     </task>
     <servers />
   </component>
@@ -159,9 +177,9 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="851" y="388" key="scopes/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1597522686216" />
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1597268011832">
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1597865798387">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1597268011832" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1050/-1920.0.1920.1050@0.0.1920.1050" timestamp="1597865798387" />
   </component>
 </project>

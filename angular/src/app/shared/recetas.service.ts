@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class RecetasService {
-  recetasUsuario: [];
+  recetasMenu: Subject<any> = new Subject<any>();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   // TODO modelo receta
-  analizeReceta(receta) {
-    return this.httpClient
+  analizeReceta(receta): Observable<any> {
+    return this.http
       .post(
         'https://api.edamam.com/api/nutrition-details?app_id=29beb672&app_key=ef4964969c8e6289f6259984b9531070',
         receta
@@ -112,14 +112,13 @@ export class RecetasService {
                 return;
             }
           });
-          console.log(analisis);
           return analisis;
         })
       );
   }
 
   saveReceta(receta): Observable<object> {
-    return this.httpClient.post('/api/v1/receta', receta).pipe(
+    return this.http.post('/api/v1/receta', receta).pipe(
       map((recetaResponse) => {
         console.log(recetaResponse);
         return recetaResponse;
@@ -128,11 +127,22 @@ export class RecetasService {
   }
 
   getRecetas(): Observable<any> {
-    return this.httpClient.get<any>('/api/v1/receta').pipe(
+    return this.http.get<any>('/api/v1/receta').pipe(
       map((recetasResponse) => {
-        this.recetasUsuario = recetasResponse.data;
         return recetasResponse;
       })
     );
+  }
+
+  getMenuRecetas(menuId): void {
+    this.http
+      .get(`/api/v1/menu/${menuId}/recetas`)
+      .pipe(
+        tap<any>((response) => {
+          this.recetasMenu.next(response.data);
+          console.log(response.data);
+        })
+      )
+      .subscribe();
   }
 }

@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Menu, MenuService } from '../menu.service';
+import { Menu, MenuService } from '../../shared/menu.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Menu, MenuService } from '../../shared/menu.service';
 
 @Component({
   selector: 'app-recetas-lista',
@@ -6,9 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./recetas-lista.component.scss'],
 })
 export class RecetasListaComponent implements OnInit {
-  @Input() menuActivo;
+  menuSelected: Menu;
 
   ngOnInit() {
-    console.log(this.menuActivo);
+    this.menuService.menuSelected.subscribe((menu) => {
+      this.menuSelected = menu;
+    });
   }
+
+  constructor(private menuService: MenuService) {}
 }

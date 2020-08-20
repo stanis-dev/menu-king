@@ -6,7 +6,7 @@ import { RecetasComponent } from './recetas/recetas.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { NoMenuSelectedComponent } from './dashboard/no-menu-selected/no-menu-selected.component';
+import { NoMenuSelectedComponent } from './dashboard/recetas-lista/no-menu-selected/no-menu-selected.component';
 import { RecetasListaComponent } from './dashboard/recetas-lista/recetas-lista.component';
 
 const routes: Routes = [
@@ -37,9 +37,10 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'menus/:menuId',
+    path: 'menus',
     component: DashboardComponent,
     canActivate: [AuthGuard],
+    children: [{ path: ':menuId', component: DashboardComponent }],
   },
 ];
 

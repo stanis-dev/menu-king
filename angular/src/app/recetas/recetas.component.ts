@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import {Subscriber, Subscription} from 'rxjs';
-import { RecetasService } from './recetas.service';
+import { Subscriber, Subscription } from 'rxjs';
+import { RecetasService } from '../shared/recetas.service';
 
 @Component({
   selector: 'app-recetas',
@@ -84,9 +84,7 @@ export class RecetasComponent implements OnInit, OnDestroy {
     return bg;
   }
 
-  ngOnDestroy(): void {
-
-  }
+  ngOnDestroy(): void {}
 
   get ingredientes(): FormArray {
     return this.recetaForm.get('ingredientes') as FormArray;
