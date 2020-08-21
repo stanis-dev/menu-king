@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Menu, MenuService } from '../../shared/menu.service';
 import { RecetasService } from '../../shared/recetas.service';
 import { Subscription } from 'rxjs';
@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
   templateUrl: './recetas-lista.component.html',
   styleUrls: ['./recetas-lista.component.scss'],
 })
-export class RecetasListaComponent implements OnInit {
+export class RecetasListaComponent implements OnInit, OnDestroy {
   menuSelected: Menu;
   recetaSub: Subscription;
+  menuSub: Subscription;
   entrantes;
   principales;
   postres;
@@ -22,7 +23,6 @@ export class RecetasListaComponent implements OnInit {
     });
 
     this.recetaSub = this.recetasService.recetasMenu.subscribe((recetas) => {
-      console.log(recetas);
       this.principales = recetas.principal;
       this.entrantes = recetas.entrante;
       this.postres = recetas.postre;
@@ -33,6 +33,16 @@ export class RecetasListaComponent implements OnInit {
     this.router.navigate(['recetas'], {
       queryParams: { menuId: this.menuSelected._id, comida },
     });
+  }
+
+  ngOnDestroy() {
+    if (this.recetaSub) {
+      this.recetaSub.unsubscribe();
+    }
+
+    if (this.menuSub) {
+      this.menuSub.unsubscribe();
+    }
   }
 
   constructor(

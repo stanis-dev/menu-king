@@ -25,6 +25,7 @@ export class RecetasComponent implements OnInit, OnDestroy {
   });
 
   analisys;
+  recetaSub: Subscription;
   formSub: Subscription;
   menusUsuarioSub: Subscription;
   selectedMenuId: string;
@@ -41,13 +42,21 @@ export class RecetasComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.menusUsuarioSub = this.menuService.userMenus.subscribe(
       (menus: [Menu]) => {
+        if (!menus) {
+          console.log('no menus, requesting');
+          return this.menuService.getMenus();
+        }
+
         this.menusUsuario = menus;
+
+        this.selectedMenuId =
+          this.router.snapshot.queryParamMap.get('menuId') ||
+          this.menusUsuario[0]._id;
       }
     );
 
-    this.selectedMenuId = this.router.snapshot.queryParamMap.get('menuId');
-    console.log(this.selectedMenuId);
-    this.comida = this.router.snapshot.queryParamMap.get('comida');
+    this.comida =
+      this.router.snapshot.queryParamMap.get('comida') || 'entrante';
   }
 
   onSubmit(): void {
@@ -58,11 +67,11 @@ export class RecetasComponent implements OnInit, OnDestroy {
 
     console.log(recetaAnalizada);
 
-    /*this.recetaSub = this.recetasService
+    this.recetaSub = this.recetasService
       .saveReceta(recetaAnalizada)
       .subscribe((receta) => {
         console.log(receta);
-      });*/
+      });
   }
 
   onAnalize(): void {
@@ -108,6 +117,10 @@ export class RecetasComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.menusUsuarioSub.unsubscribe();
+
+    if (this.recetaSub) {
+      this.recetaSub.unsubscribe();
+    }
   }
 
   get ingredientes(): FormArray {

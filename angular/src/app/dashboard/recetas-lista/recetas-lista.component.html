@@ -12,12 +12,9 @@
     </div>
     <ul>
       <li *ngFor="let entrante of entrantes">
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>
-            {{ entrante.recetaNombre }}
-          </p>
-        </div>
+        <p>
+          {{ entrante.recetaNombre }}
+        </p>
       </li>
     </ul>
   </div>
@@ -34,10 +31,7 @@
     </div>
     <ul>
       <li *ngFor="let principal of principales">
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>{{ principal.recetaNombre }}</p>
-        </div>
+        <p>{{ principal.recetaNombre }}</p>
       </li>
     </ul>
   </div>
@@ -54,10 +48,7 @@
     </div>
     <ul>
       <li *ngFor="let postre of postres">
-        <div>
-          <a class="edit-btn">&#9998;</a><a class="delete-btn">&#9747;</a>
-          <p>{{ postre.recetaNombre }}</p>
-        </div>
+        <p>{{ postre.recetaNombre }}</p>
       </li>
     </ul>
   </div>

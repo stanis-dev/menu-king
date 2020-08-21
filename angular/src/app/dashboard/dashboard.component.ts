@@ -59,12 +59,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.route.firstChild.paramMap.subscribe((params) => {
             // Seleccionar menu en función del param en la barra de navegación
             const menuId = params.get('menuId');
-            const menu = this.menusUsuario[menuId];
 
-            // Emitir el menu seleccionado
-            this.menuService.menuSelected.next(menu);
-            // Esto carga la parte derecha (lista de recetas) para el menu seleccionado
-            this.recetasService.getMenuRecetas(menu._id);
+            if (menuId && this.menusUsuario) {
+              const menu = this.menusUsuario[menuId];
+              // Emitir el menu seleccionado
+              this.menuService.menuSelected.next(menu);
+              // Esto carga la parte derecha (lista de recetas) para el menu seleccionado
+              this.recetasService.getMenuRecetas(menu._id);
+            }
           });
         }
       }

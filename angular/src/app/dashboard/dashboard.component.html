@@ -7,30 +7,26 @@
     ></app-modificar-menu>
   </div>
   <div class="resumen">
-    <div class="resumen-upper">
-      <div class="menu-title">
-        <h3>Tus menus:</h3>
-        <button type="button" class="createMenuButton" (click)="onModifyMenu()">
-          Crear Menu
-        </button>
-      </div>
-      <p
-        class="arrow-menus top"
-        *ngIf="menusUsuario && menusUsuario.length >= 6"
-      >
-        &#10096;
-      </p>
-      <app-menu-list
-        [menusUsuario]="menusUsuario"
-        (editMenuClicked)="onModifyMenu()"
-      ></app-menu-list>
-      <p
-        class="arrow-menus bottom"
-        *ngIf="menusUsuario && menusUsuario.length >= 6"
-      >
-        &#10096;
-      </p>
+    <div class="menu-title">
+      <h3>Tus menus:</h3>
+      <button type="button" class="createMenuButton" (click)="onModifyMenu()">
+        Crear Menu
+      </button>
     </div>
+    <p class="arrow-menus top" *ngIf="menusUsuario && menusUsuario.length >= 6">
+      &#10096;
+    </p>
+    <app-menu-list
+      [menusUsuario]="menusUsuario"
+      (editMenuClicked)="onModifyMenu()"
+    ></app-menu-list>
+    <p
+      class="arrow-menus bottom"
+      *ngIf="menusUsuario && menusUsuario.length >= 6"
+    >
+      &#10096;
+    </p>
+
     <app-datos-nutricionales></app-datos-nutricionales>
   </div>
   <app-recetas-lista></app-recetas-lista>

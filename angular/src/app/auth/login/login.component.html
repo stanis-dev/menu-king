@@ -1,11 +1,23 @@
 <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <p>Entrar con una cuenta</p>
-  <input type="email" placeholder="Tu correo" formControlName="email" />
-  <input
-    type="password"
-    placeholder="Tu contraseña"
-    formControlName="password"
-  />
+  <label for="email">
+    Nombre de usuario
+    <input
+      type="email"
+      placeholder="Tu correo"
+      formControlName="email"
+      id="email"
+    />
+  </label>
+  <label for="password">
+    Nombre de usuario
+    <input
+      type="password"
+      placeholder="Tu contraseña"
+      formControlName="password"
+      id="password"
+    />
+  </label>
   <button type="submit" [disabled]="!authForm.valid">ENTRAR</button>
   <button type="button" [routerLink]="['signup']">CREAR CUENTA</button>
 </form>

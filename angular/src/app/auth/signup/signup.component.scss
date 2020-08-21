@@ -1,20 +1,17 @@
 form {
-  input {
-    width: 100%;
-    margin-top: 10px;
-    height: 45px;
-    border-radius: 10px;
-    border: none;
-    padding-left: 20px;
-    font-family: Montserrat;
-    font-size: 1.1rem;
+  label {
+    margin-top: 20px;
+    input {
+      padding-top: 20px;
+      &.ng-touched.ng-invalid {
+        border-bottom: 2px red solid;
+        border-bottom: 2px red solid;
+        border-bottom: 2px red solid;
+      }
 
-    &.ng-touched.ng-invalid {
-      border-bottom: 2px red solid;
-    }
-
-    &::placeholder {
-      font-size: 1.1rem;
+      &::placeholder {
+        font-size: 1.1rem;
+      }
     }
   }
 
@@ -23,8 +20,8 @@ form {
     height: 45px;
     width: 50%;
     display: block;
-    font-family: Montserrat;
-    font-size: 1.1rem;
+    font-family: "Montserrat", sans-serif;
+
     font-weight: 200;
     border: none;
     background-color: rgb(172, 111, 33);

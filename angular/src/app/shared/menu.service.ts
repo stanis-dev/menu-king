@@ -25,7 +25,7 @@ export interface Menu {
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
-  userMenus: Subject<[Menu]> = new Subject<[Menu]>();
+  userMenus: BehaviorSubject<[Menu]> = new BehaviorSubject<[Menu]>(null);
   menuToEdit: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(null);
   menuSelected: BehaviorSubject<Menu> = new BehaviorSubject<Menu>(undefined);
 

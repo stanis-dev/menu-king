@@ -1,21 +1,41 @@
 <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
   <p>Registrar cuenta nueva</p>
-  <input
-    type="text"
-    placeholder="Nombre de usuario"
-    formControlName="username"
-  />
-  <input type="email" placeholder="Tu correo" formControlName="email" />
-  <input
-    type="password"
-    placeholder="Tu contraseña"
-    formControlName="password"
-  />
-  <input
-    type="password"
-    placeholder="Confirmar contraseña"
-    formControlName="confirmPassword"
-  />
+  <label for="username">
+    Nombre de usuario
+    <input
+      type="text"
+      placeholder="Nombre de usuario"
+      formControlName="username"
+      id="username"
+    />
+  </label>
+  <label for="email">
+    Email
+    <input
+      type="email"
+      placeholder="Tu correo"
+      formControlName="email"
+      id="email"
+    />
+  </label>
+  <label for="password">
+    Contraseña
+    <input
+      type="password"
+      placeholder="Tu contraseña"
+      formControlName="password"
+      id="password"
+    />
+  </label>
+  <label for="confirmPassword">
+    Confirma tu contaseña
+    <input
+      type="password"
+      placeholder="Confirmar contraseña"
+      formControlName="confirmPassword"
+      id="confirmPassword"
+    />
+  </label>
   <button type="submit" [disabled]="!authForm.valid">ENVIAR</button>
   <button type="button" [routerLink]="['../']">LOGIN</button>
 </form>
