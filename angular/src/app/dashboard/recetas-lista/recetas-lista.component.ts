@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Menu, MenuService } from '../../shared/menu.service';
 import { RecetasService } from '../../shared/recetas.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recetas-lista',
@@ -28,8 +29,13 @@ export class RecetasListaComponent implements OnInit {
     });
   }
 
+  onAddReceta(comida: string): void {
+    this.router.navigate(['recetas']);
+  }
+
   constructor(
     private menuService: MenuService,
-    private recetasService: RecetasService
+    private recetasService: RecetasService,
+    private router: Router
   ) {}
 }
