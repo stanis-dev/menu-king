@@ -11,7 +11,10 @@
       /></a>
     </div>
     <ul>
-      <li *ngFor="let entrante of entrantes">
+      <li
+        *ngFor="let entrante of entrantes"
+        (click)="onEditReceta(entrante._id)"
+      >
         <p>
           {{ entrante.recetaNombre }}
         </p>
@@ -30,7 +33,10 @@
       /></a>
     </div>
     <ul>
-      <li *ngFor="let principal of principales">
+      <li
+        *ngFor="let principal of principales"
+        (click)="onEditReceta(principal._id)"
+      >
         <p>{{ principal.recetaNombre }}</p>
       </li>
     </ul>
@@ -47,7 +53,7 @@
       /></a>
     </div>
     <ul>
-      <li *ngFor="let postre of postres">
+      <li *ngFor="let postre of postres" (click)="onEditReceta(postre._id)">
         <p>{{ postre.recetaNombre }}</p>
       </li>
     </ul>

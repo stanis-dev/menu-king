@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Menu, MenuService } from '../../shared/menu.service';
 import { RecetasService } from '../../shared/recetas.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recetas-lista',
@@ -35,6 +35,10 @@ export class RecetasListaComponent implements OnInit, OnDestroy {
     });
   }
 
+  onEditReceta(id: string): void {
+    this.router.navigate([`../recetas/${id}`], { relativeTo: this.route });
+  }
+
   ngOnDestroy() {
     if (this.recetaSub) {
       this.recetaSub.unsubscribe();
@@ -48,6 +52,7 @@ export class RecetasListaComponent implements OnInit, OnDestroy {
   constructor(
     private menuService: MenuService,
     private recetasService: RecetasService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 }

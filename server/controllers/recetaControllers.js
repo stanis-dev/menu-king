@@ -46,3 +46,14 @@ exports.getRecetasOfMenu = catchAsync(async (req, res, next) => {
     data: recetas,
   });
 });
+
+exports.getReceta = catchAsync(async (req, res, next) => {
+  const recetaId = req.params.recetaId;
+
+  const data = await Receta.findById(recetaId);
+
+  res.status(200).json({
+    status: "ok",
+    data,
+  });
+});

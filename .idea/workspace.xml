@@ -24,20 +24,13 @@
   <component name="ChangeListManager">
     <list default="true" id="72345de3-9f0b-46f2-bb0f-0e357d84e20f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/auth/auth.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth/auth.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/auth/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/auth/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth/login/login.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/auth/signup/signup.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth/signup/signup.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/auth/signup/signup.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/auth/signup/signup.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/app-routing.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/dashboard/recetas-lista/recetas-lista.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/angular/src/app/recetas/recetas.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/recetas/recetas.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular/src/app/shared/menu.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/shared/menu.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular/src/app/shared/recetas.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular/src/app/shared/recetas.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/recetaControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/recetaControllers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/recetaRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/recetaRoutes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +111,7 @@
       <workItem from="1597523021886" duration="6135000" />
       <workItem from="1597567636949" duration="4000" />
       <workItem from="1597567656039" duration="10000" />
-      <workItem from="1597567684841" duration="138621000" />
+      <workItem from="1597567684841" duration="140755000" />
     </task>
     <servers />
   </component>

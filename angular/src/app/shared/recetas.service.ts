@@ -155,4 +155,8 @@ export class RecetasService {
       )
       .subscribe();
   }
+
+  getRecetaById(id: string): Observable<any> {
+    return this.http.get(`/api/v1/receta/${id}`);
+  }
 }

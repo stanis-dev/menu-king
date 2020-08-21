@@ -25,9 +25,11 @@ export class RecetasComponent implements OnInit, OnDestroy {
   });
 
   analisys;
-  recetaSub: Subscription;
+  saveRecetaSub: Subscription;
+  getRecetaSub: Subscription;
   formSub: Subscription;
   menusUsuarioSub: Subscription;
+  recetoForEdit;
   selectedMenuId: string;
   comida: string;
   menusUsuario: [Menu];
@@ -57,6 +59,16 @@ export class RecetasComponent implements OnInit, OnDestroy {
 
     this.comida =
       this.router.snapshot.queryParamMap.get('comida') || 'entrante';
+
+    if (this.router.snapshot.children[0].params.recetaId) {
+      const recetaId = this.router.snapshot.children[0].params.recetaId;
+      this.getRecetaSub = this.recetasService
+        .getRecetaById(recetaId)
+        .subscribe((receta) => {
+          this.recetoForEdit = receta.data;
+          console.log(receta.data);
+        });
+    }
   }
 
   onSubmit(): void {
@@ -67,11 +79,15 @@ export class RecetasComponent implements OnInit, OnDestroy {
 
     console.log(recetaAnalizada);
 
-    this.recetaSub = this.recetasService
+    this.saveRecetaSub = this.recetasService
       .saveReceta(recetaAnalizada)
       .subscribe((receta) => {
         console.log(receta);
       });
+  }
+
+  prepopulateForm(receta) {
+    //
   }
 
   onAnalize(): void {
@@ -118,8 +134,12 @@ export class RecetasComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.menusUsuarioSub.unsubscribe();
 
-    if (this.recetaSub) {
-      this.recetaSub.unsubscribe();
+    if (this.saveRecetaSub) {
+      this.saveRecetaSub.unsubscribe();
+    }
+
+    if (this.getRecetaSub) {
+      this.getRecetaSub.unsubscribe();
     }
   }
 

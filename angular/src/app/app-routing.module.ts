@@ -20,6 +20,7 @@ const routes: Routes = [
     path: 'recetas',
     component: RecetasComponent,
     canActivate: [AuthGuard],
+    children: [{ path: ':recetaId', component: RecetasComponent }],
   },
   {
     path: 'auth',
