@@ -143,6 +143,7 @@ export class RecetasService {
             entrante: [],
             principal: [],
             postre: [],
+            menuId,
           };
 
           response.data.map((receta) => {

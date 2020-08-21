@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { RecetasService } from '../shared/recetas.service';
+import { Menu, MenuService } from '../shared/menu.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recetas',
@@ -9,10 +11,11 @@ import { RecetasService } from '../shared/recetas.service';
   styleUrls: ['./recetas.component.scss'],
 })
 export class RecetasComponent implements OnInit, OnDestroy {
-  analisys;
   recetaForm: FormGroup = this.fb.group({
     recetaNombre: ['', Validators.required],
     recetaImagen: [''],
+    menu: ['', Validators.required],
+    plato: ['', Validators.required],
     ingredientes: this.fb.array([
       this.fb.group({
         ingrediente: [''],
@@ -20,33 +23,50 @@ export class RecetasComponent implements OnInit, OnDestroy {
       }),
     ]),
   });
+
+  analisys;
   formSub: Subscription;
-  recetaSub: Subscription;
+  menusUsuarioSub: Subscription;
+  selectedMenuId: string;
+  comida: string;
+  menusUsuario: [Menu];
 
   constructor(
     private fb: FormBuilder,
-    private recetasService: RecetasService
+    private recetasService: RecetasService,
+    private menuService: MenuService,
+    private router: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.menusUsuarioSub = this.menuService.userMenus.subscribe(
+      (menus: [Menu]) => {
+        this.menusUsuario = menus;
+      }
+    );
+
+    this.selectedMenuId = this.router.snapshot.queryParamMap.get('menuId');
+    console.log(this.selectedMenuId);
+    this.comida = this.router.snapshot.queryParamMap.get('comida');
+  }
 
   onSubmit(): void {
     const recetaAnalizada = {
       ...this.recetaForm.value,
       analisisNutricional: { ...this.analisys },
-      menu: '5f3ead5819b0aa3a0800b6e2',
-      plato: 'postre',
     };
 
-    this.recetaSub = this.recetasService
+    console.log(recetaAnalizada);
+
+    /*this.recetaSub = this.recetasService
       .saveReceta(recetaAnalizada)
       .subscribe((receta) => {
         console.log(receta);
-      });
+      });*/
   }
 
   onAnalize(): void {
-    let ingr = [];
+    const ingr = [];
     this.recetaForm.value.ingredientes.map((ingrediente) => {
       ingr.push(
         `${ingrediente.ingredienteCantidad}gr of ${ingrediente.ingrediente}`
@@ -86,7 +106,9 @@ export class RecetasComponent implements OnInit, OnDestroy {
     return bg;
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.menusUsuarioSub.unsubscribe();
+  }
 
   get ingredientes(): FormArray {
     return this.recetaForm.get('ingredientes') as FormArray;

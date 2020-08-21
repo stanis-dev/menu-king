@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { Subscription } from 'rxjs';
 import { UtilsService } from './shared/utils.service';
+import { MenuService } from './shared/menu.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +15,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
     this.authService.autoLogin();
     this.authService.autoLogout();
+
+    this.menuService.getMenus();
 
     this.userSub = this.authService.user.subscribe((user) => {
       this.isAuthenticated = !!user;

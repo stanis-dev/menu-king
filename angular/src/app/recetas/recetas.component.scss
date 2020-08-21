@@ -1,15 +1,21 @@
 .recetas {
   display: flex;
-  margin-top: 100px;
-  min-height: 50vh;
+  height: 80vh;
   max-width: 1000px;
   flex-wrap: wrap;
 
   form {
+    border-radius: 20px;
+    background-color: rgb(36, 36, 30);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    padding: 25px;
     width: 100%;
+    height: 100%;
     max-width: 490px;
     min-width: 490px;
-    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     overflow-y: auto;
     -ms-overflow-style: none; /* IE y Edge */
     scrollbar-width: none; /* Firefox */
@@ -17,63 +23,159 @@
       display: none;
     }
 
+    #full-width-btn {
+      width: 100%;
+    }
+
     .receta-header {
-      min-height: 300px;
+      min-height: 200px;
       display: flex;
       flex-direction: column;
       border-radius: 10px;
       overflow: hidden;
       justify-content: space-between;
 
+      input {
+        background-color: transparent;
+      }
+
       h3 {
-        background-color: rgba(146, 47, 1, 0.85);
+        background-color: rgb(97, 102, 89);
         line-height: 3rem;
         width: 100%;
         padding-left: 50px;
         margin-top: 0;
-        border-bottom: 3px solid rgb(228, 96, 35);
+        text-transform: uppercase;
+        font-weight: 200;
       }
+    }
 
-      .header-inputs {
-        border-top: 3px solid rgb(228, 96, 35);
-        background-color: rgba(146, 47, 1, 0.85);
-        input {
-          display: block;
+    .header-inputs {
+      margin-top: 20px;
+    }
+
+    .course-menu-selectors {
+      .custom-select {
+        position: relative;
+        margin-top: 15px;
+
+        select {
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+          font-size: 1rem;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 100;
+          padding: 0.5rem 1.5rem;
+          color: white;
+          background-color: #565637;
+          border: 0;
           width: 100%;
-          border-radius: 0;
+          border-radius: 7px;
+        }
+
+        .custom-arrow {
+          $size: 0.3rem;
+
+          position: absolute;
+          background-color: #3b3c47;
+          display: block;
+          height: 100%;
+          width: 2rem;
+          top: 0;
+          right: 0;
+          pointer-events: none;
+          border-radius: 0 7px 7px 0;
+
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+          &::before {
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+            border-bottom: $size solid rgba(255, 255, 255, 0.5);
+
+            top: 40%;
+          }
+
+          &::after {
+            border-left: $size solid transparent;
+            border-right: $size solid transparent;
+            border-top: $size solid rgba(255, 255, 255, 0.5);
+
+            top: 65%;
+          }
         }
       }
     }
 
     .ingrediente-input {
-      margin: 10px 0;
+      margin: 10px 0 0 50px;
+      position: relative;
 
-      input[type="text"] {
-        width: 50%;
+      .svg-icon {
+        cursor: pointer;
+        fill: #528c52;
+        position: absolute;
+        top: 64.5px;
+        left: -35px;
       }
 
-      input[type="number"] {
-        margin-left: 3%;
-        width: 30%;
+      h4 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 100;
+        margin-left: -40px;
       }
 
-      button {
-        height: 30px;
-        border-radius: 50%;
-        padding: 0 12px;
-        margin-left: 7.5px;
+      .ingrediente-container {
+        display: flex;
+        justify-content: center;
+        align-content: center;
 
-        &.btn-delete {
-          background-color: rgb(204, 77, 77);
+        a {
+          margin-top: 7px;
+          margin-left: 10px;
         }
 
-        &.btn-add {
-          background-color: rgb(92, 150, 104);
+        label {
+          height: 20px;
+          font-size: 0.8rem;
+        }
+
+        .ingrediente-nombre {
+          width: 70%;
+        }
+
+        .ingrediente-cantidad {
+          margin-left: 3%;
+          width: 25%;
+        }
+
+        input {
+          margin-top: 5px;
+          font-size: 0.85rem;
+          padding-top: 10px;
+          border: none;
+        }
+
+        .ingrediente-container {
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+          background-color: #4d5061;
+
+          .btn-delete {
+          }
         }
       }
     }
-
     .botones {
+      margin-top: 25px;
       button {
         width: 45%;
 
@@ -92,4 +194,10 @@
     background-color: rgba(255, 255, 255, 0.123);
     margin-left: 20px;
   }
+}
+
+input.ng-touched.ng-invalid {
+  border-bottom: #8c4242 2px solid;
+  border-right: #8c4242 2px solid;
+  border-left: #8c4242 2px solid;
 }

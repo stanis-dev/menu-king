@@ -30,7 +30,9 @@ export class RecetasListaComponent implements OnInit {
   }
 
   onAddReceta(comida: string): void {
-    this.router.navigate(['recetas']);
+    this.router.navigate(['recetas'], {
+      queryParams: { menuId: this.menuSelected._id, comida },
+    });
   }
 
   constructor(
