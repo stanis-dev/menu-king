@@ -66,7 +66,7 @@ export class RecetasComponent implements OnInit, OnDestroy {
         .getRecetaById(recetaId)
         .subscribe((receta) => {
           this.recetoForEdit = receta.data;
-          console.log(receta.data);
+          this.prepopulateForm();
         });
     }
   }
@@ -86,8 +86,22 @@ export class RecetasComponent implements OnInit, OnDestroy {
       });
   }
 
-  prepopulateForm(receta) {
-    //
+  prepopulateForm(): void {
+    this.analisys = this.recetoForEdit.analisisNutricional;
+
+    this.recetaForm.patchValue({
+      recetaNombre: this.recetoForEdit.recetaNombre,
+      recetaImagen: this.recetoForEdit.recetaImagen,
+    });
+
+    this.recetoForEdit.ingredientes.map((ingrediente) => {
+      this.ingredientes.push(
+        this.fb.group({
+          ingrediente: ingrediente.ingrediente,
+          ingredienteCantidad: ingrediente.ingredienteCantidad,
+        })
+      );
+    });
   }
 
   onAnalize(): void {
