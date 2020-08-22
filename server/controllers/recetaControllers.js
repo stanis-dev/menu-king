@@ -57,3 +57,12 @@ exports.getReceta = catchAsync(async (req, res, next) => {
     data,
   });
 });
+
+exports.updateReceta = catchAsync(async (req, res, next) => {
+  const data = await Receta.findByIdAndUpdate(req.params.recetaId, req.body);
+
+  res.status(200).json({
+    status: "ok",
+    data,
+  });
+});

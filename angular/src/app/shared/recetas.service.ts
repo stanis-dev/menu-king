@@ -159,4 +159,8 @@ export class RecetasService {
   getRecetaById(id: string): Observable<any> {
     return this.http.get(`/api/v1/receta/${id}`);
   }
+
+  updateReceta(receta, id: string): void {
+    this.http.put(`/api/v1/receta/${id}`, receta).subscribe();
+  }
 }

@@ -145,6 +145,13 @@ export class RecetasComponent implements OnInit, OnDestroy {
     return bg;
   }
 
+  onUpdateReceta(): void {
+    this.recetasService.updateReceta(
+      this.recetaForm.value,
+      this.recetoForEdit._id
+    );
+  }
+
   ngOnDestroy(): void {
     this.menusUsuarioSub.unsubscribe();
 

@@ -1,5 +1,8 @@
 <div class="recetas">
-  <form [formGroup]="recetaForm" (ngSubmit)="onSubmit()">
+  <form
+    [formGroup]="recetaForm"
+    (ngSubmit)="recetoForEdit ? onUpdateReceta() : onSubmit()"
+  >
     <div
       class="receta-header"
       [ngStyle]="{
@@ -169,7 +172,9 @@
         Analizar
       </button>
 
-      <button type="submit" [disabled]="!recetaForm.valid">Guardar</button>
+      <button type="submit" [disabled]="!recetaForm.valid">
+        {{ recetoForEdit ? "Actualizar" : "Guardar" }}
+      </button>
       <button type="button">Descartar</button>
     </div>
   </form>
